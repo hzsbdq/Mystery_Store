@@ -11,14 +11,16 @@
     <div class="top">
         <center>
             <div class="cen">
-                <div class="logo">
-                    <img src="../img/logow.png" width="260" height="100">
+                <div class="logo1">
+                    <img src="../img/logow.png">
                 </div>
 
                 <div class="menu">
                     <ul>
                         <li>
-                           <strong>@Html.ActionLink("首页", "Index", "Home")</strong>
+                            <a href="#">
+                                <strong>首页</strong>
+                            </a>
                         </li>
                         <li>
                             <a href="#">
@@ -35,18 +37,30 @@
                 <div class="menu2">
                     <ul>
                         <li>
-                           <strong>@Html.ActionLink("登录","Index","Login")</strong>
+                            <a href="#">
+                                <strong>登录</strong>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </center>
     </div>
-    @RenderBody()
+    </div>
+
+    <div class="adb">
+        <div class="bg"></div>
+        <div class="ad">
+            <center>
+                @RenderBody()
+            </center>
+        </div>
+    </div>
+
     <div class="foot">
         <center>
             <div class="cen">
-                <div class="help" align="center">
+                <div class="help">
                     <div class="guide">
                         <div class="guide-section">
                             <h3>账号设置</h3>
@@ -81,8 +95,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="under" align="center" style="color:#ccc">
-                    <hr color="#09F" width="1280px">
+                <div class="under">
+                    <hr class="hr1">
                     <a href="#">公司简介</a> - <a href="#">客户服务</a> - <a href="#">相关法律</a> - <a href="#">联系我们</a> - <a href="#">商务合作</a> - <a href="#">加入我们</a> <br>
                     lwz公司版权所有 ©1997-2019 中国网络游戏版权保护联盟举报中心
                 </div>
@@ -91,7 +105,7 @@
     </div>
 
     <div class="floatbar">
-        <ul style="list-style-type:none">
+        <ul>
             <li>
                 <a href="#">
                     <img src="../img/iconsc.png">

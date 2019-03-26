@@ -64,8 +64,17 @@ html, body {
             background-color: #111;
         }
 
-.logo {
+.logo1 {
     float: left;
+    width: 260px;
+    height: 100px;
+}
+
+.logo2 {
+    float: left;
+    width: 260px;
+    height: 100px;
+    padding: 0 20px 10px 20px;
 }
 
 .hl {
@@ -112,6 +121,7 @@ html, body {
         border-radius: 2px;
         background: #343e4b;
         padding-inline-start: 0px;
+        list-style-type: none;
     }
 
     .floatbar li {
@@ -192,9 +202,23 @@ html, body {
 .guide ul {
     padding-inline-start: 0px;
 }
-.form1:hover {
-    background-color: rgb(224,236,255);
+
+.under {
+    color: #ccc;
+    align: center;
 }
+
+.hr1 {
+    background: #0099FF;
+    width: 1280px;
+    border: none;
+    height: 1px;
+}
+
+.help {
+    align: center;
+}
+
 .table {
     margin-left: auto;
     margin-right: auto;
@@ -223,6 +247,7 @@ html, body {
     -moz-transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     cursor: pointer;
+    padding: 0 0px 0px 0.5px;
 }
 
     .login-in-btn:focus, .login-in-btn:hover {
@@ -246,8 +271,24 @@ html, body {
     -moz-transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     cursor: pointer;
+    padding: 0 0px 0px 0.5px;
 }
-.login-in-btn2:focus, .login-in-btn2:hover {
+
+    .login-in-btn2:focus, .login-in-btn2:hover {
         background-color: rgb(240,80,90);
         background-color: rgba(240,80,90,0.9);
+    }
+
+.form1 {
+    padding: 0 0px 30px 0px;
+}
+
+.form11 {
+    width: 280px;
+    height: 40px;
+    padding-left: 10px;
+}
+
+.block {
+    height: 3px;
 }
