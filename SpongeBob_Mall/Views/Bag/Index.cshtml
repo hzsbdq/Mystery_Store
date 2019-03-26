@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SpongeBob_Mall.Models.Goods>
+@{ 
+    IEnumerator<SpongeBob_Mall.Models.Goods> ienumerator = Model.GetEnumerator();
+    bool fl = true;
+    if (!ienumerator.MoveNext())
+    {
+        fl = false;
+    }
+}
+<style>
+    .ltable tr td{
+        width:200px;
+        height:200px;
+    }
+    .inp{
+        width:30px;
+    }
+    td{
+        vertical-align:middle;
+    }
+</style>
+<table border="1" class="ltable">
+    @for (int i = 1; i <= 5; i++)
+    {
+            <tr>
+                @for (int j = 1; j <= 5; j++)
+                {
+                    if (fl&&ienumerator.Current.Location==i*j)
+                    {
+                <td>
+                    @ienumerator.Current.Map.Name:@ienumerator.Current.Amount
+                    @using (Html.BeginForm("Abandon", "Bag", new { goodsId = ienumerator.Current.GoodsId }))
+                    {
+                        <lable>丢弃数量：</lable>
+                        <input class="inp" name="amount" type='text' onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+                        <input type="submit" value="丢弃" />
+                    }
+                    @using (Html.BeginForm("Putaway", "Bag", new { goodsId = ienumerator.Current.GoodsId }))
+                    {
+                        <lable>上架：</lable><br />
+                        <lable>单价：</lable>
+                        <input class="inp" name="price" type='text' onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+                        <lable>数量:</lable>
+                        <input class="inp" name="amount" type='text' onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+                        <input type="submit" value="确认上架" />
+                    }
+
+                </td>
+                        if (!ienumerator.MoveNext())
+                        {
+                            fl = false;
+                        }
+                    }
+                    else
+                    {
+                        <td>空</td>
+                    }
+
+                }
+            </tr>
+            }
+    </table>

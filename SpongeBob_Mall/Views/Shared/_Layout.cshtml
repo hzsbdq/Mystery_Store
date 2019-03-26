@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>Mystery Store</title>
+    @Styles.Render("~/Content/abc.css")
+    @Scripts.Render("~/Scripts/abc.js")
+</head>
+<body OnLoad="swapPic()">
+    <div class="top">
+        <center>
+            <div class="cen">
+                <div class="logo">
+                    <img src="../img/logow.png" width="260" height="100">
+                </div>
+
+                <div class="menu">
+                    <ul>
+                        <li>
+                           <strong>@Html.ActionLink("首页", "Index", "Home")</strong>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <strong>饰品市场</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <strong>我的背包</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="menu2">
+                    <ul>
+                        <li>
+                           <strong>@Html.ActionLink("登录","Index","Login")</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </center>
+    </div>
+    @RenderBody()
+    <div class="foot">
+        <center>
+            <div class="cen">
+                <div class="help" align="center">
+                    <div class="guide">
+                        <div class="guide-section">
+                            <h3>账号设置</h3>
+                            <div class="guide-pre"></div>
+                            <ul>
+                                <li><a href="#">个人信息</a></li>
+                                <li><a href="#">防骗指南</a></li>
+                            </ul>
+                        </div>
+                        <div class="guide-section">
+                            <h3>交易介绍</h3>
+                            <div class="guide-pre"></div>
+                            <ul>
+                                <li><a href="#">交易简介</a></li>
+                                <li><a href="#">在线客服</a></li>
+                            </ul>
+                        </div>
+                        <div class="guide-section">
+                            <h3>饰品介绍</h3>
+                            <div class="guide-pre"></div>
+                            <ul>
+                                <li><a href="#">饰品简介</a></li>
+                            </ul>
+                        </div>
+                        <div class="guide-section">
+                            <h3>支付方式</h3>
+                            <div class="guide-pre"></div>
+                            <ul>
+                                <li><a href="#">微信支付</a></li>
+                                <li><a href="#">支付宝支付</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="under" align="center" style="color:#ccc">
+                    <hr color="#09F" width="1280px">
+                    <a href="#">公司简介</a> - <a href="#">客户服务</a> - <a href="#">相关法律</a> - <a href="#">联系我们</a> - <a href="#">商务合作</a> - <a href="#">加入我们</a> <br>
+                    lwz公司版权所有 ©1997-2019 中国网络游戏版权保护联盟举报中心
+                </div>
+            </div>
+        </center>
+    </div>
+
+    <div class="floatbar">
+        <ul style="list-style-type:none">
+            <li>
+                <a href="#">
+                    <img src="../img/iconsc.png">
+                    <p>收藏</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../img/iconbz.png">
+                    <p>帮助</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../img/iconkf.png">
+                    <p>客服</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

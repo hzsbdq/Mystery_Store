@@ -1,0 +1,15 @@
+﻿<h1>欢迎来到蟹堡王</h1>
+
+@using (Html.BeginForm("GetGoods", "Bag"))
+{
+    <p>测试道具</p>
+    <lable>道具ID：</lable>
+    <input name="mapId" type='text' onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+    <lable>数量：</lable>
+    <input name="amount" type='text' onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+    <input type="submit" value="获得道具" />
+}
+
+
+@Html.ActionLink("背包", "Index", "Bag")
+@Html.ActionLink("商店", "Index", "Shop")

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SpongeBob_Mall.Models.Goods>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>道具名称</p>
+        </th>
+        <th>
+            <p>单价</p>
+        </th>
+        <th>
+            <p>数量</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Map.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                <p>购买</p>
+            </td>
+        </tr>
+    }
+
+</table>

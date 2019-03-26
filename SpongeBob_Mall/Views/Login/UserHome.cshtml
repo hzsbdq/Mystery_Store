@@ -1,0 +1,14 @@
+﻿@using SpongeBob_Mall.Models
+@{
+    string name="你还未登录";
+    if (HttpContext.Current.Session["user"] != null)
+    {
+        User user = (User)HttpContext.Current.Session["user"];
+        name = "欢迎~" + user.Name;
+    }
+}
+
+<p>@name</p>
+
+@Html.ActionLink("注销", "Cancellation", "Login")
+
