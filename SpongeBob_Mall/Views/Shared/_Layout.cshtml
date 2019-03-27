@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
+}
+<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
+    <META http-equiv="content-type" content="text/html; charset=gb2312">
     <title>Mystery Store</title>
+    <script type="text/javascript" src="myscripts.js" charset="UTF-8"></script>
     @Styles.Render("~/Content/abc.css")
     @Scripts.Render("~/Scripts/abc.js")
 </head>
