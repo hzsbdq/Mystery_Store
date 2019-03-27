@@ -16,4 +16,17 @@ var ranl = 0;
         useRand = randl;
         document.randimg.src = images[useRand].src		
 		setTimeout('swapPic()',2000);
-	}
+}
+
+function validate_required(field, _alerttxt) {
+    with (field) {
+        if (value == null || value == "") { alert(alerttxt); return false }
+        else { return true }
+    }
+}
+
+function validate_form(thisform) {
+    with (thisform) {
+        if (validate_required(username, "Username must be filled out!") == false) { username.focus(); return false }
+    }
+}

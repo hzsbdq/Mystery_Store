@@ -1,24 +1,17 @@
 ﻿<div class="cen">
     <div class="table">
         <div class="logo2">
-            <img src="../素材/logocn.png">
+            <img src="../img/logocn.png">
         </div>
         <div class="form1">
-            <form>
-                <input id="username" class="form11" name="" type="text" placeholder="用户名"
-                       onmouseover="this.style.backgroundColor='rgb(224,236,255)'"
-                       onmouseout="this.style.backgroundColor='white'">
-                <input id="password" class="form11" name="password" type="password" placeholder="密码"
-                       onmouseover="this.style.backgroundColor='rgb(224,236,255)'"
-                       onmouseout="this.style.backgroundColor='white'">
-            </form>
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post,new { @onsubmit = "return validate_form(this)" }))
+            {
+                @Html.TextBox("username", "", new { @class = "form11", @placeholder = "用户名" });
+                @Html.Password("password", "", new { @class = "form11", @placeholder = "密码" });
+                <input type="submit" value="登录" class="login-in-btn" />
+            }
+            
         </div>
-        <div class="login-in-btn">
-            登录
-        </div>
-        <div class="block"></div>
-        <div class="login-in-btn2">
-            注册
-        </div>
+        @Html.ActionLink("注册","Register","Login",new {@class="login-in-btn2" })
     </div>
 </div>

@@ -56,6 +56,8 @@ F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\Microsoft.Web.Infrastructur
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\MySql.Data.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\MySql.Data.Entity.EF6.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\Newtonsoft.Json.dll
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.dll
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.Mvc.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Diagnostics.DiagnosticSource.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Web.Helpers.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Web.Mvc.dll
@@ -69,6 +71,8 @@ F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\EntityFramework.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\EntityFramework.SqlServer.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\MySql.Data.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\MySql.Data.Entity.EF6.xml
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.xml
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.Mvc.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Web.Helpers.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Web.Mvc.xml
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\System.Web.Optimization.xml
@@ -88,12 +92,8 @@ F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.Razor.re
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.resources.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csprojAssemblyReference.cache
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj.CoreCompileInputs.cache
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj.CopyComplete
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.pdb
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csprojAssemblyReference.cache
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.dll
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.Mvc.dll
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.xml
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\PagedList.Mvc.xml
