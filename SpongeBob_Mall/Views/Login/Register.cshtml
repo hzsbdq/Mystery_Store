@@ -1,31 +1,17 @@
-﻿<div class="adb">
-    <div class="bg"></div>
-    <div class="ad">
-        <center>
-            <div class="cen">
-                <div class="table">
-                    <div class="logo">
-                        <img src="../img/logocn.png">
-                    </div>
-                    <div class="block">
-                        <form>
-                            <input id="username" name="" class="form1" type="text" placeholder="用户名"
-                                   onmouseover="this.style.backgroundColor='rgb(224,236,255)'"
-                                   onmouseout="this.style.backgroundColor='white'">
-                            <input id="password" name="password" class="form1" type="password" placeholder="密码"
-                                   onmouseover="this.style.backgroundColor='rgb(224,236,255)'"
-                                   onmouseout="this.style.backgroundColor='white'">
-                            <input id="password" name="password"  class="form1"type="password" placeholder="确认密码"
-                               onmouseover="this.style.backgroundColor='rgb(224,236,255)'"
-                               onmouseout="this.style.backgroundColor='white'">
-                        </form>
-                    </div>
-                    <div style="height:3px;"></div>
-                    <div class="login-in-btn">
-                        提交注册
-                    </div>
-                </div>
-            </div>
-        </center>
+﻿
+<div class="cen">
+    <div class="table">
+        <div class="logo2">
+            <img src="../img/logocn.png">
+        </div>
+        <div class="form1">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @onsubmit = "return validate_form(this)" }))
+            {
+                @Html.TextBox("username", "", new { @class = "form11", @placeholder = "用户名" });
+                @Html.Password("password", "", new { @class = "form11", @placeholder = "密码" });
+                @Html.Password("repassword", "", new { @class = "form11", @placeholder = "重复密码" });
+                <input type="submit" value="确认注册" class="login-in-btn" />
+            }
+        </div>
     </div>
 </div>

@@ -45,8 +45,14 @@ namespace SpongeBob_Mall.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(string username,string password)
+        public async Task<ActionResult> Register(string username,string password,string repassword)
         {
+            // 密码不一致
+            if (password != repassword)
+            {
+                Response.Redirect("Register?errorMSG=4");
+                return null;
+            }
             // 验证用户名和密码的合法性
             Regex regexUsername = new Regex(@"^[a-zA-Z0-9_-]{4,16}$");
             Regex regexPassword = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{6,20}$");

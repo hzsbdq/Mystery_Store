@@ -1,6 +1,4 @@
-﻿
-    
-<div class="cen">
+﻿<div class="cen">
     <div class="table">
         <div class="logo2">
             <img src="../img/logocn.png">
@@ -8,6 +6,13 @@
         <div class="form1">
             @using (Html.BeginForm("Login", "Login", FormMethod.Post,new { @onsubmit = "return validate_form(this)" }))
             {
+               
+                    if (Request["errorMSG"] != null)
+                    {
+                        <p>用户名或密码错误</p>
+                    //还需要改
+                }
+
                 @Html.TextBox("username", "", new { @class = "form11", @placeholder = "用户名" });
                 @Html.Password("password", "", new { @class = "form11", @placeholder = "密码" });
                 <input type="submit" value="登录" class="login-in-btn" />

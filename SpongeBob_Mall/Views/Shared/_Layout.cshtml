@@ -39,7 +39,17 @@
                 <div class="menu2">
                     <ul>
                         <li>
-                                <strong>@Html.ActionLink("登录","Index","Login")</strong>
+                            @{
+                                if (HttpContext.Current.Session["user"] != null)
+                                {
+                                    SpongeBob_Mall.Models.User user = (SpongeBob_Mall.Models.User)HttpContext.Current.Session["user"];
+                                    <strong>@Html.ActionLink(user.Name, "UserHome", "Login")</strong>
+                                }
+                                else
+                                {
+                                    <strong>@Html.ActionLink("登录", "Index", "Login")</strong>
+                                }
+                            }
                         </li>
                     </ul>
                 </div>
