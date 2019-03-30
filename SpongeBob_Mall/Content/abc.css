@@ -1,101 +1,12 @@
-
-
-html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
-    margin: 0;
-    padding: 0;
-}
-
-* {
-    box-sizing: border-box;
-}
-
 html, body {
-    min-height: 100%;
-}
-
-body {
-    font-family: "Microsoft YaHei";
-    font-size: 14px;
-    color: #333;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
-}
-
-ul, ol {
-    list-style: none;
-}
-
-img {
-    border: none;
-    vertical-align: middle;
-}
-
-a {
-    text-decoration: none;
-    color: #232323;
-}
-
-table {
-    border-collapse: collapse;
-    table-layout: fixed;
+    padding: 0;
+    margin: 0;
+    height: 100%;
 }
 
 input, textarea {
     outline: none;
     border: none;
-}
-
-textarea {
-    resize: none;
-    overflow: auto;
-}
-
-.clearfix {
-    zoom: 1;
-}
-
-    .clearfix:after {
-        content: ".";
-        width: 0;
-        height: 0;
-        visibility: hidden;
-        display: block;
-        clear: both;
-        overflow: hidden;
-    }
-
-.fl {
-    float: left
-}
-
-.fr {
-    float: right
-}
-
-.tl {
-    text-align: left;
-}
-
-.tc {
-    text-align: center
-}
-
-.tr {
-    text-align: right;
-}
-
-.ellipse {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.inline {
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
 }
 .top {
     height: 100px;
@@ -169,6 +80,7 @@ textarea {
     width: 260px;
     height: 100px;
     padding: 0 20px 10px 20px;
+    margin:0 auto;
 }
 
 .hl {
@@ -310,14 +222,14 @@ textarea {
 }
 
 .help {
-    align: center;
+    text-align: center;
 }
 
 .table {
     margin-left: auto;
     margin-right: auto;
     width: 400px;
-    height:350px;
+    height: 350px;
     text-align: center;
     top: 120px;
     background-color: rgba(50,50,50,0.6);
@@ -342,7 +254,7 @@ textarea {
     transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     cursor: pointer;
     padding: 0 0px 0px 0.5px;
-    margin-top:25px;
+    margin-top: 25px;
 }
 
     .login-in-btn:focus, .login-in-btn:hover {
@@ -351,7 +263,7 @@ textarea {
     }
 
 .login-in-btn2 {
-    display:block;
+    display: block;
     font-size: 13px;
     font-weight: 500;
     line-height: 38px;
@@ -368,8 +280,7 @@ textarea {
     transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     cursor: pointer;
     padding: 0 0px 0px 0.5px;
-    margin-left:11px;
-    margin-top:-25px;
+    margin:0 auto;
 }
 
     .login-in-btn2:focus, .login-in-btn2:hover {
@@ -378,17 +289,160 @@ textarea {
     }
 
 .form1 {
-    padding: 0 0px 30px 0px;
+    padding: 0 0px 5px 0px;
 }
 
 .form11 {
     width: 280px;
     height: 40px;
     padding-left: 10px;
-    margin-top:2px;
-    border-radius:5px;
+    margin-top: 2px;
+    border-radius: 5px;
 }
 
 .block {
     height: 3px;
+}
+
+
+.kuangk {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 1050px;
+}
+
+.left_panel {
+    float: left;
+    width: 250px;
+    min-height: 630px;
+    background-color: #1b1f2a;
+}
+
+.main_panel {
+    float: left;
+    width: 800px;
+    min-height: 630px;
+    background-color: #1b1f2a;
+}
+
+.left_choose_menu {
+    width: 100%;
+    height: 100px;
+    background-color: #2c3040;
+    margin: 5px 0;
+}
+
+.choose_class {
+    height: 100%;
+    width: 20px;
+    background-color: #232836;
+    float: left;
+    padding: 0 15px;
+}
+
+    .choose_class a {
+        display: block;
+        width: 15px;
+        height: 50%;
+        color: #d7b35a;
+        margin-top: 18px;
+    }
+
+.choose_div {
+    float: left;
+    height: 30px;
+    width: 45px;
+    margin-top: 3px;
+    margin-left: 5px;
+    color: white;
+}
+
+.main_choose_menu {
+    width: 98%;
+    height: 30px;
+    margin: 5px auto;
+    color: #d7b35a;
+}
+
+.sort_way {
+    height: 90%;
+    width: 100px;
+    float: left;
+    margin: auto 5px;
+    background-color: #2c3040;
+}
+
+.search_bar {
+    width: 250px;
+    height: 90%;
+    float: right;
+    margin: auto 5px;
+    background-color: #1b1f2a;
+}
+
+    .search_bar input {
+        float: left;
+        height: 80%;
+        margin: auto 0;
+    }
+
+.main_goods_list {
+    height: 555px;
+    width: 98%;
+}
+
+.goods_div {
+    float: left;
+    margin: 0 0 5px 5px;
+    width: 150px;
+    height: 180px;
+    background-color: #2c3040;
+}
+
+.goods_img {
+    width: 140px;
+    height: 120px;
+    margin: 5px;
+    background-color: white;
+}
+
+.goods_date {
+    width: 140px;
+    margin: 0 5px;
+    color: white;
+}
+
+.change_page {
+    width: 160px;
+    height: 25px;
+    margin: 5px auto;
+}
+
+.change_buttom1 {
+    width: 60px;
+    height: 90%;
+    float: left;
+    background-color: #2c3040;
+    color: white;
+}
+
+.change_buttom2 {
+    width: 60px;
+    height: 90%;
+    float: right;
+    background-color: #2c3040;
+    color: white
+}
+
+.page_number {
+    float: left;
+    width: 30px;
+    height: 90%;
+    margin-left: 5px;
+    color: white
 }

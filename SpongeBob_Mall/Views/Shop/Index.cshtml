@@ -1,35 +1,67 @@
 ﻿@model IEnumerable<SpongeBob_Mall.Models.Goods>
 
-<table class="table">
-    <tr>
-        <th>
-            <p>道具名称</p>
-        </th>
-        <th>
-            <p>单价</p>
-        </th>
-        <th>
-            <p>数量</p>
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Map.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                <p>购买</p>
-            </td>
-        </tr>
-    }
-
-</table>
+<div class="kuangk">
+    <div class="left_panel">
+        <div class="left_choose_menu">
+            <div class="choose_class"><a>稀有度</a></div>
+            <div class="choose_list">
+                <div class="choose_div">不限</div>
+                <div class="choose_div">普通</div>
+                <div class="choose_div">罕见</div>
+                <div class="choose_div">稀有</div>
+                <div class="choose_div">神话</div>
+                <div class="choose_div">不朽</div>
+                <div class="choose_div">远古</div>
+                <div class="choose_div">传说</div>
+                <div class="choose_div">至宝</div>
+            </div>
+        </div>
+        <div class="left_choose_menu">
+            <div class="choose_class"><a>类型</a></div>
+            <div class="choose_list">
+                <div class="choose_div">不限</div>
+                <div class="choose_div">不限</div>
+                <div class="choose_div">不限</div>
+                <div class="choose_div">不限</div>
+                <div class="choose_div">不限</div>
+                <div class="choose_div">不限</div>
+            </div>
+        </div>
+    </div>
+    <div class="main_panel">
+        <div class="main_choose_menu">
+            <div class="sort_way">时间升序</div>
+            <div class="sort_way">价格升序</div>
+            <div class="search_bar">
+                <input />
+                <div>搜索</div>
+            </div>
+        </div>
+        <div class="main_goods_list">
+            <div class="goods_div">
+                <div class="goods_img"></div>
+                <div class="goods_date">
+                    测试道具<br>
+                    价格:1000
+                </div>
+            </div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+            <div class="goods_div"></div>
+        </div>
+        <div class="change_page">
+            <div class="change_buttom1">上一页</div>
+            <div class="page_number">1</div>
+            <div class="change_buttom2">下一页</div>
+        </div>
+    </div>
+</div>
