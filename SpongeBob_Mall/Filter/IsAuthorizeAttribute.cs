@@ -26,7 +26,7 @@ namespace SpongeBob_Mall.Filter
             {
                 result = true;
             }
-            return result;
+            return true;
         }
     }
 }

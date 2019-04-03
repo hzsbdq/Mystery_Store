@@ -150,11 +150,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\TestGoodsController.cs" />
     <Compile Include="Controllers\XieBaoWang\BagController.cs" />
-    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\XieBaoWang\ShopController.cs" />
     <Compile Include="Controllers\XieBaoWang\xbwHomeController.cs" />
@@ -202,6 +201,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="img\logo.psd" />
+    <Content Include="XML\Choose_Class.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -240,6 +242,7 @@
     <Content Include="Views\xbwHome\Index.cshtml" />
     <Content Include="Views\Bag\Index.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\TestGoods\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

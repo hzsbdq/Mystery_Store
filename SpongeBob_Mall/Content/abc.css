@@ -3,10 +3,16 @@ html, body {
     margin: 0;
     height: 100%;
 }
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
 input, textarea {
     outline: none;
     border: none;
+}
+input {
+    outline: none;
 }
 .top {
     height: 100px;
@@ -76,7 +82,6 @@ input, textarea {
 }
 
 .logo2 {
-    float: left;
     width: 260px;
     height: 100px;
     padding: 0 20px 10px 20px;
@@ -384,12 +389,11 @@ input, textarea {
     margin: auto 5px;
     background-color: #1b1f2a;
 }
-
-    .search_bar input {
+.search_bar input {
         float: left;
-        height: 80%;
+        height: 100%;
         margin: auto 0;
-    }
+}
 
 .main_goods_list {
     height: 555px;
@@ -405,10 +409,10 @@ input, textarea {
 }
 
 .goods_img {
+    display: block;
     width: 140px;
     height: 120px;
     margin: 5px;
-    background-color: white;
 }
 
 .goods_date {

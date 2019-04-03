@@ -5,7 +5,7 @@
             <img src="../img/logocn.png">
         </div>
         <div class="form1">
-            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @onsubmit = "return validate_form(this)" }))
+            @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @onsubmit = "return validate_form(this)" }))
             {
                 @Html.TextBox("username", "", new { @class = "form11", @placeholder = "用户名" });
                 @Html.Password("password", "", new { @class = "form11", @placeholder = "密码" });
