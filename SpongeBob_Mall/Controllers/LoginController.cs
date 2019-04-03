@@ -31,6 +31,11 @@ namespace SpongeBob_Mall.Controllers
             return Redirect("Index");
         }
 
+        public ActionResult MoneyBag()
+        {
+            return View();
+        }
+
         public ActionResult UserHome()
         {
             

@@ -450,3 +450,336 @@ input {
     margin-left: 5px;
     color: white
 }
+
+.info-left {
+    width: 240px;
+    height: 570px;
+    position: relative;
+    float: left;
+    margin-top: 40px;
+    margin-left: 50px;
+    background: rgb(200,200,200);
+}
+
+.info-right {
+    width: 910px;
+    height: 570px;
+    margin-top: 40px;
+    margin-left: 30px;
+    position: relative;
+    float: left;
+    background: rgb(255,255,255);
+    border-radius: 5px;
+}
+
+.cen2 {
+    width: 1280px;
+    height: 640px;
+}
+
+.mytx {
+    padding: 36px 20px 20px;
+}
+
+.txpic {
+    width: 80px;
+    height: 80px;
+}
+
+.cont_panel {
+    background: rgb(27,33,43);
+    height: 570px;
+}
+
+h2 {
+    color: white;
+}
+
+.my-menu {
+    height: 350px;
+    background: rgb(20,25,30);
+}
+
+    .my-menu a {
+        text-decoration: none;
+    }
+
+    .my-menu ul {
+        padding: 0 0 0 0;
+    }
+
+    .my-menu li {
+        line-height: 70px;
+        font-size: 14px;
+        overflow: hidden;
+        text-decoration: none;
+        width: 240px;
+        height: 70px;
+        cursor: pointer;
+    }
+
+        .my-menu li a {
+            display: block;
+            color: #90969C;
+            position: relative;
+        }
+
+            .my-menu li a:hover {
+                color: #fff;
+                text-shadow: 0 0 3px #fff;
+            }
+
+        .my-menu li.on a {
+            color: #fff;
+            text-shadow: 0 0 3px #fff;
+        }
+
+.textb {
+    padding: 20px 50px 40px 50px;
+    float: left;
+}
+
+.blank {
+    height: 30px;
+    width: 800px;
+}
+
+.tx2 {
+    width: 50px;
+    height: 50px;
+}
+
+.textb tr {
+    display: block;
+    height: 60px;
+    border-bottom: rgb(192,192,192) 1px solid;
+}
+
+    .textb tr td {
+        height: 60px;
+        line-height: 60px;
+        padding: 0;
+    }
+
+        .textb tr td.tbleft {
+            height: 60px;
+            width: 120px;
+            line-height: 60px;
+            color: #606060;
+        }
+
+        .textb tr td.tbcen {
+            height: 60px;
+            width: 600px;
+            line-height: 60px;
+        }
+
+        .textb tr td.tblefts {
+            height: 60px;
+            width: 120px;
+            line-height: 60px;
+            color: #959595;
+        }
+
+        .textb tr td.tbright {
+            height: 60px;
+            line-height: 60px;
+        }
+
+.textb table {
+    width: 800px;
+    height: 200px;
+}
+
+.on {
+    background: url(../img/bt.png) !important;
+}
+
+.on2 {
+    background: url(../img/bt2.png);
+}
+
+.textb h3 {
+    margin: 0;
+    color: #000 !important;
+}
+
+.btnblue {
+    color: #fff !important;
+    background: #4773C8;
+    text-decoration: none;
+    height: 28px;
+    width: 80px;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.btnblue2 {
+    color: #fff !important;
+    background: #4773C8;
+    text-decoration: none;
+    height: 40px;
+    width: 100px;
+    border-radius: 3px;
+    border-style: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.maintt {
+    border-bottom: #959595 0px solid !important;
+}
+
+.blankqb {
+    height: 20px;
+    width: 910px;
+    padding: 0 0 0 30px;
+    position: relative;
+    float: left;
+}
+
+.info-topright {
+    height: 60px;
+    width: 450px;
+    padding: 30px 230px 30px 230px;
+    background: url(../img/yuebg.png) no-repeat center top;
+    margin-top: 40px;
+    margin-left: 30px;
+    position: relative;
+    float: left;
+}
+
+.info-centerright {
+    height: 53px;
+    width: 910px;
+    background-color: rgb(27,33,43);
+    margin-left: 30px;
+    position: relative;
+    float: left;
+}
+
+.info-underright {
+    height: 357px;
+    width: 800px;
+    padding: 20px 55px 0;
+    background-color: rgb(255,255,255);
+    margin-left: 30px;
+    position: relative;
+    float: left;
+}
+
+.ulqb {
+    margin: 0;
+    padding: 0;
+}
+
+    .ulqb li {
+        width: 170px;
+        height: 52px;
+        line-height: 52px;
+        border-right: 1px solid #303B4F;
+        float: left;
+        font-size: 15px;
+        text-align: center;
+        color: #929394;
+        cursor: pointer;
+    }
+
+.on3 {
+    background: url(../img/bt3.png);
+}
+
+.on4 {
+    color: #FFF !important;
+    font-weight: 700;
+    background: url(../img/bt4.png) !important;
+}
+
+.on5 {
+    border: 1px solid #EEA20E !important;
+    font-weight: 700;
+    font-size: 18px !important;
+    color: #EEA20E !important;
+}
+
+.on6 {
+    border: 1px solid #EEA20E !important;
+}
+
+.on7 {
+    border: 1px solid #EEA20E !important;
+    font-size: 18px !important;
+    color: #EEA20E !important;
+}
+
+.on8 {
+    border: 1px solid #EEA20E !important;
+}
+
+.yue {
+    height: 60px;
+    line-height: 60px;
+    width: 200px;
+    float: left;
+    color: #929394;
+    font-size: 27px;
+}
+
+.yueq {
+    height: 60px;
+    line-height: 60px;
+    width: 250px;
+    float: left;
+    color: #eea20e;
+    font-size: 40px;
+}
+
+.tbqb {
+    width: 100%;
+}
+
+    .tbqb tbody tr td {
+        height: 78px;
+        line-height: 78px;
+        color: #959595;
+    }
+
+.czqb {
+    border: none;
+    height: 34px;
+    width: 90%;
+    outline: none;
+}
+
+.qbline1 span {
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 6px;
+    margin: 0 4px 0 0;
+    color: #515151;
+    min-width: 90px;
+    line-height: 38px;
+    height: 36px;
+    position: relative;
+    border: 1px solid #E3E3E3;
+    font-size: 16px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.qbline2 span {
+    margin-right: 11px;
+    min-width: 122px;
+    color: #515151;
+    border: 1px solid #E3E3E3;
+    padding: 0 15px;
+    float: left;
+    line-height: 46px;
+    height: 46px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}

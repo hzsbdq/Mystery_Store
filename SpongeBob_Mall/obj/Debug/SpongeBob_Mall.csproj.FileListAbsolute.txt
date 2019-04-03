@@ -92,7 +92,6 @@ F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.Razor.re
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.resources.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csprojAssemblyReference.cache
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj.CoreCompileInputs.cache
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj.CopyComplete
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.dll

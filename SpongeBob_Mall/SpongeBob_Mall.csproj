@@ -183,6 +183,10 @@
     <Content Include="img\bg.jpg" />
     <Content Include="img\bg2.png" />
     <Content Include="img\bg2b.png" />
+    <Content Include="img\bt.png" />
+    <Content Include="img\bt2.png" />
+    <Content Include="img\bt3.png" />
+    <Content Include="img\bt4.png" />
     <Content Include="img\d1.jpg" />
     <Content Include="img\d2.png" />
     <Content Include="img\d3.png" />
@@ -197,6 +201,8 @@
     <Content Include="img\logocn.png" />
     <Content Include="img\logow.png" />
     <Content Include="img\topbg.png" />
+    <Content Include="img\tx.png" />
+    <Content Include="img\yuebg.png" />
     <Content Include="Scripts\abc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -243,6 +249,7 @@
     <Content Include="Views\Bag\Index.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\TestGoods\Index.cshtml" />
+    <Content Include="Views\Login\MoneyBag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
