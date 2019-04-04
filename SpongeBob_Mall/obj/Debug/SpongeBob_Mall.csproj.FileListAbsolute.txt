@@ -96,3 +96,4 @@ F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csproj.CopyComplete
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.dll
 F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.pdb
+F:\CodeBag\ASP.NET\SpongeBob_Mall\SpongeBob_Mall\obj\Debug\SpongeBob_Mall.csprojAssemblyReference.cache

@@ -200,6 +200,16 @@
     <Content Include="img\logo.png" />
     <Content Include="img\logocn.png" />
     <Content Include="img\logow.png" />
+    <Content Include="img\sp\am1.jpg" />
+    <Content Include="img\sp\cm1.jpg" />
+    <Content Include="img\sp\fv1.jpg" />
+    <Content Include="img\sp\jugg1.jpg" />
+    <Content Include="img\sp\my1.jpg" />
+    <Content Include="img\sp\qop1.jpg" />
+    <Content Include="img\sp\rub1.jpg" />
+    <Content Include="img\sp\rub2.jpg" />
+    <Content Include="img\sp\rub3.jpg" />
+    <Content Include="img\sp\sf1.jpg" />
     <Content Include="img\topbg.png" />
     <Content Include="img\tx.png" />
     <Content Include="img\yuebg.png" />

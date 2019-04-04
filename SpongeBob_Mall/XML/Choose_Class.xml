@@ -3,27 +3,27 @@
   <xiyoudu>
     <content>
       <name>不限</name>
-      <color></color>
+      <color>rgb(178,178,178)</color>
     </content>
     <content>
       <name>普通</name>
-      <color></color>
+      <color>rgb(176,195,217)</color>
     </content>
     <content>
       <name>稀有</name>
-      <color></color>
+      <color>rgb(124,143,245)</color>
     </content>
     <content>
       <name>神话</name>
-      <color></color>
+      <color>rgb(168,118,249)</color>
     </content>
     <content>
       <name>不朽</name>
-      <color></color>
+      <color>rgb(242,177,102)</color>
     </content>
     <content>
       <name>至宝</name>
-      <color></color>
+      <color>rgb(154,204,76)</color>
     </content>
   </xiyoudu>
   <leixing>
@@ -40,7 +40,15 @@
       <color></color>
     </content>
     <content>
+      <name>手部</name>
+      <color></color>
+    </content>
+    <content>
       <name>衣服</name>
+      <color></color>
+    </content>
+    <content>
+      <name>背饰</name>
       <color></color>
     </content>
     <content>

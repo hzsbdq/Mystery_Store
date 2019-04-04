@@ -1,9 +1,23 @@
-﻿<div class="cen2">
+﻿@using SpongeBob_Mall.Models;
+@{
+    User user = null;
+    if (HttpContext.Current.Session["user"] != null)
+    {
+        user = (SpongeBob_Mall.Models.User)HttpContext.Current.Session["user"];
+    }
+    else
+    {
+        user.Name = "滚去登录";
+        Response.Redirect("Index");
+    }
+
+}
+<div class="cen2">
     <div class="info-left">
         <div class="cont_panel">
             <div class="mytx">
                 <img class="txpic" src="../img/tx.png">
-                <h2>用户名</h2>
+                <h2>@user.Name</h2>
                 <div class="clear"></div>
             </div>
             <div class="my-menu" id="my-menu">
@@ -31,7 +45,7 @@
                 </tr>
                 <tr>
                     <td class="tbleft">昵称</td>
-                    <td class="tbcen">hzsbdq</td>
+                    <td class="tbcen">@user.Name</td>
                     <td class="tbright"><input type="button" href="#" class="btnblue" value="修改昵称"></td>
                 </tr>
             </table>

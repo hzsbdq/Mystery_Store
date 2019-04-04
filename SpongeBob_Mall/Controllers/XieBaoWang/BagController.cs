@@ -20,6 +20,8 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             User user = (User)HttpContext.Session["user"];
             List<Goods> goods = await db.Goods.Where(b => b.UserID == user.UserId && b.State==0).OrderBy(b => b.Location).ToListAsync();
             return View(goods);
+
+            //return View();
         }
 
         // 丢弃物品
