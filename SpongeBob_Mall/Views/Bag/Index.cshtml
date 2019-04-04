@@ -19,13 +19,13 @@
                             foreach (XmlNode item in list)
                             {
                                 <li>
-                                    @if ((string)HttpContext.Current.Session["bj1"] == item.FirstChild.InnerText)
+                                    @if ((string)HttpContext.Current.Session["rare"] == item.FirstChild.InnerText)
                                     {
-                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { type = 1, choose = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck", @style = "color:" + item.LastChild.InnerText })
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { fl = 1, choose = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck", @style = "color:" + item.LastChild.InnerText })
                                     }
                                     else
                                     {
-                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { type = 1, choose = item.FirstChild.InnerText }, new { @class = "choose_div", @style = "color:" + item.LastChild.InnerText })
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { fl = 1, choose = item.FirstChild.InnerText }, new { @class = "choose_div", @style = "color:" + item.LastChild.InnerText })
                                     }
                                 </li>
                             }
@@ -43,13 +43,13 @@
                             foreach (XmlNode item in list1)
                             {
                                 <li>
-                                    @if ((string)HttpContext.Current.Session["bj2"] == item.FirstChild.InnerText)
+                                    @if ((string)HttpContext.Current.Session["type"] == item.FirstChild.InnerText)
                                     {
-                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { type = 2, choose = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck" })
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { fl = 2, choose = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck" })
                                     }
                                     else
                                     {
-                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { type = 2, choose = item.FirstChild.InnerText }, new { @class = "choose_div" })
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Index", new { fl = 2, choose = item.FirstChild.InnerText }, new { @class = "choose_div" })
                                     }
                                 </li>
                             }
@@ -64,8 +64,30 @@
             <div class="main_choose_menu">
                 <div class="choose_menu_left" id="choose_menu_left">
                     <ul>
-                        <li class="sort_way">时间升序</li>
-                        <li class="sort_way">价格升序</li>
+                        @if ((int)HttpContext.Current.Session["time_sort"] == 0)
+                        {
+                            <li class="sort_way">@Html.ActionLink("时间升序", "Index", new { time_sort = 1 })</li>//默认没有选中的状态
+                        }
+                        else if ((int)HttpContext.Current.Session["time_sort"] == 1)
+                        {
+                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("时间升序", "Index", new { time_sort = 2 })</li>//选中的升序状态
+                        }
+                        else
+                        {
+                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("时间降序", "Index", new { time_sort = 0 })</li>//选中的降序状态
+                        }
+                        @if ((int)HttpContext.Current.Session["price_sort"] == 0)
+                        {
+                            <li class="sort_way">@Html.ActionLink("价格升序", "Index", new { price_sort = 1 })</li>
+                        }
+                        else if ((int)HttpContext.Current.Session["price_sort"] == 1)
+                        {
+                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("价格升序", "Index", new { price_sort = 2 })</li>
+                        }
+                        else
+                        {
+                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("价格降序", "Index", new { price_sort = 0 })</li>
+                        }
                     </ul>
                 </div>
                 <div class="search_bar">
@@ -76,26 +98,51 @@
             <div class="main_goods_list">
                 @foreach (var item in Model)
                 {
-                    <a href="#" class="goods_div">
+                <a href="#" class="goods_div">
 
-                        <div class="goods_img">
-                            <img class="goodsimg" src="../img/sp/@item.Map.Picture" />
-                        </div>
-                        <div class="goods_date">
-                            @item.Map.Name
-                        </div>
-                        <br />
-                        <div class="goods_price">
-                            参考价格:￥999<small>.99</small>
-                        </div>
-                        <div class="tag tag_arcana">@item.Map.Rare</div>
-                    </a>
+                    <div class="goods_img">
+                        <img class="goodsimg" src="../img/sp/@item.Map.Picture" />
+                    </div>
+                    <div class="goods_date">
+                        @item.Map.Name
+                    </div>
+                    <br />
+                    <div class="goods_price">
+                        参考价格:￥999<small>.99</small>
+                    </div>
+                    @{
+                                XmlNode root3 = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
+                                XmlNodeList root4 = root3.ChildNodes;
+                                foreach (XmlNode i in root4)
+                                {
+                                    if (i.FirstChild.InnerText == item.Map.Rare)
+                                    {
+                                <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Map.Rare</div>
+                                break;
+                            }
+                    }
+                    }
+                </a>
                 }
             </div>
             <div class="change_page">
-                <a href="#" class="chpa change_buttom1">上一页</a>
-                <a href="#" class="chpa page_number">1</a>
-                <a href="#" class="chpa change_buttom2">下一页</a>
+                @if ((int)HttpContext.Current.Session["bag_page"] == 0)
+                {
+                    <div class="chpa change_buttom1">上一页</div>
+                }
+                else
+                {
+                    Html.ActionLink("上一页", "Index", new { change_page = -1 }, new { @class = "chpa change_buttom1" });
+                }
+                <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"]+1)</div>
+                @if ((int)HttpContext.Current.Session["bag_page"] == (int)HttpContext.Current.Session["bag_max_page"])
+                {
+                    <div class="chpa change_buttom2">下一页</div>
+                }
+                else
+                {
+                    Html.ActionLink("下一页", "Index", new { change_page = 1 },new{@class= "chpa change_buttom2" });
+                }
             </div>
         </div>
     </div>
