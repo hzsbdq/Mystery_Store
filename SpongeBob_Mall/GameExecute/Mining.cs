@@ -18,7 +18,7 @@ namespace SpongeBob_Mall.GameExecute
         public static async System.Threading.Tasks.Task<BagController> MiningAsync()
         {
             BagController bag = new BagController();
-            await bag.GetGoods(1, 1);
+            await bag.GetGoods(1);
             return null;
         }
     }

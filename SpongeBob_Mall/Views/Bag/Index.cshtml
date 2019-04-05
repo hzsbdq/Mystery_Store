@@ -126,22 +126,22 @@
                 }
             </div>
             <div class="change_page">
-                @if ((int)HttpContext.Current.Session["bag_page"] == 0)
+                @if ((int)HttpContext.Current.Session["bag_page"] == 1)
                 {
                     <div class="chpa change_buttom1">上一页</div>
                 }
                 else
                 {
-                    Html.ActionLink("上一页", "Index", new { change_page = -1 }, new { @class = "chpa change_buttom1" });
+                    @Html.ActionLink("上一页", "Index", new { change_page = -1 }, new { @class = "chpa change_buttom1" })
                 }
-                <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"]+1)</div>
+                <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"])</div>
                 @if ((int)HttpContext.Current.Session["bag_page"] == (int)HttpContext.Current.Session["bag_max_page"])
                 {
                     <div class="chpa change_buttom2">下一页</div>
                 }
                 else
                 {
-                    Html.ActionLink("下一页", "Index", new { change_page = 1 },new{@class= "chpa change_buttom2" });
+                    @Html.ActionLink("下一页", "Index", new { change_page = 1 },new { @class= "chpa change_buttom2" })
                 }
             </div>
         </div>

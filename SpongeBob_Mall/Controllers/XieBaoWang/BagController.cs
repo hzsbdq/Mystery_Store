@@ -18,31 +18,32 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
         {
             User user = (User)HttpContext.Session["user"];
             List<Goods> goods;
+            List<Goods> goods_next;
             IQueryable<Goods> goods_or;
             IOrderedQueryable<Goods> goods_ored;
             int bag_page = 0;                             //初始化背包页面的值
             if (HttpContext.Session["bag_page"] == null)  //如果session中没有值，初始化值
             {
-                HttpContext.Session["bag_page"] = 0;
+                HttpContext.Session["bag_page"] = 1;
             }
             if (change_page != null)//如果是页操作，更新背包页的值
             {
-                bag_page = (int)((int)HttpContext.Session["bag_page"]+change_page);
+                bag_page = (int)((int)HttpContext.Session["bag_page"] + change_page);
             }
-            else//否则将背包页的值归零
+            else//否则将背包页的值归一，并重置排序
             {
-                bag_page = 0;
+                bag_page = 1;
+                HttpContext.Session["time_sort"] = HttpContext.Session["time_sort"] == null || time_sort == null ? 0 : time_sort;
+                HttpContext.Session["price_sort"] = HttpContext.Session["price_sort"] == null || price_sort == null ? 0 : price_sort;
             }
             if (bag_page < 1)//如果是非法操作，归零
             {
-                HttpContext.Session["bag_page"] = 0;
+                HttpContext.Session["bag_page"] = 1;
             }
             else
             {
                 HttpContext.Session["bag_page"] = bag_page;
             }
-            HttpContext.Session["time_sort"] = (HttpContext.Session["time_sort"] == null|| time_sort == null)&&change_page==null ? 0 : time_sort;
-            HttpContext.Session["price_sort"] = (HttpContext.Session["price_sort"] == null || price_sort == null)&&change_page==null ? 0 : price_sort;
             int time_sort_clone = (int)HttpContext.Session["time_sort"];
             int price_sort_clone = (int)HttpContext.Session["price_sort"];
             if (time_sort_clone != 0)
@@ -112,19 +113,21 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             try//防止越界
             {
                 goods = await goods_ored.Skip(8 * (bag_page - 1)).Take(8).ToListAsync();
+                goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
             }
             catch(Exception e)
             {
                 goods = await goods_ored.Skip(0).Take(8).ToListAsync();
+                goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
             }
 
-            if (goods.Count < 8)
+            if (goods_next.Count > 0)
             {
-                HttpContext.Session["bag_max_page"] = bag_page;
+                HttpContext.Session["bag_max_page"] = bag_page+1;
             }
             else
             {
-                HttpContext.Session["bag_max_page"] = bag_page+1;
+                HttpContext.Session["bag_max_page"] = bag_page;
             }
 
             return View(goods);
@@ -196,7 +199,7 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
 
         // TO DO 获得物品，需要便利背包空位，放在最小的空位上或同一种物品数量加1，如果没有空位就不允许存入，如果是第一手物品就记录获取时间
         [HttpPost]
-        public async Task<ActionResult> GetGoods(int mapId, int amount)
+        public async Task<ActionResult> GetGoods(int mapId)
         {
             // 判断物品是否存在
             Map map = await db.Maps.Where(b => b.MapId == mapId).FirstOrDefaultAsync();
@@ -204,73 +207,29 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             {
                 return null;// TO Do 返回错误信息
             }
-            // TO DO 从数据库获得用户背包的物品列表
+
             User user = (User)HttpContext.Session["user"];
-            List<Goods> goods = await db.Goods.Where(b => b.UserID == user.UserId && b.State == 0).OrderBy(b => b.Location).ToListAsync();
+           
 
-            // 背包是否已满(暂时定25)
-            if (goods.Count >= 25)
-            {
-                return null;// TO Do 返回错误信息
-            }
-
-            // TO Do 遍历列表、标记第一个空位（初始为1每便利一个加1当遍历的物品的位置大于初始值时初始值的位置就是空位）。若继续遍历若找到同一种物品直接物品数量加1
+            
             Goods addGoods=null;
-            foreach(Goods g in goods)
+            addGoods = new Goods
             {
-                if (g.MapID == mapId)
-                {
-                    addGoods = g;
-                }
-            }
-            if (addGoods != null)
-            {
-                // 存在相同的物品
-                addGoods.Amount += amount;
-            }
-            else
-            {
-                // 不存在相同的物品
-                int fl = 1;
-                foreach(Goods g in goods)
-                {
-                    if (g.Location != fl)
-                    {
-                        addGoods = new Goods
-                        {
-                            UserID = user.UserId,
-                            MapID = mapId,
-                            Amount = amount,
-                            Price = 0,
-                            GetDate = DateTime.Now,
-                            CollectionTag = 0,
-                            State = 0,
-                            Location = fl
-                        };
-                        break;
-                    }
-                    fl++;
-                }
-                if (addGoods == null)
-                {
-                    addGoods = new Goods
-                    {
-                        UserID = user.UserId,
-                        MapID = mapId,
-                        Amount = amount,
-                        Price = 0,
-                        GetDate = DateTime.Now,
-                        CollectionTag = 0,
-                        State = 0,
-                        Location = fl
-                    };
-                }
-                db.Goods.Add(addGoods);
-            }
+                UserID = user.UserId,
+                MapID = mapId,
+                Amount = 1,
+                Price = 0,
+                GetDate = DateTime.Now,
+                CollectionTag = 0,
+                State = 0,
+                Location = 1
+            };
+            db.Goods.Add(addGoods);
+            
 
             await db.SaveChangesAsync();
 
-            return View("~/Views/xbwHome/Index.cshtml");// To DO 需要在参数里接收调用此Action的位置，执行结束后回到来的地方
+            return View("~/Views/TestGoods/Index.cshtml");// To DO 需要在参数里接收调用此Action的位置，执行结束后回到来的地方
         }
 
 
