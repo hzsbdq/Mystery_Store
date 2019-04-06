@@ -14,57 +14,30 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
     {
         private MySqlContext db = new MySqlContext();
         // 获取背包列表
-        public async Task<ActionResult> Index(int? fl,string choose,int? time_sort,int? price_sort,int? change_page)
+
+        public async Task<ActionResult> Index()
+        {
+            List<Goods> goods;
+            await Choose(null,null);
+            goods = (List<Goods>)HttpContext.Session["goods"];
+            return View(goods);
+        }
+        public async Task<ActionResult> Choose(int? fl, string choose)
         {
             User user = (User)HttpContext.Session["user"];
-            List<Goods> goods;
-            List<Goods> goods_next;
             IQueryable<Goods> goods_or;
-            IOrderedQueryable<Goods> goods_ored;
-            int bag_page = 0;                             //初始化背包页面的值
-            if (HttpContext.Session["bag_page"] == null)  //如果session中没有值，初始化值
-            {
-                HttpContext.Session["bag_page"] = 1;
-            }
-            if (change_page != null)//如果是页操作，更新背包页的值
-            {
-                bag_page = (int)((int)HttpContext.Session["bag_page"] + change_page);
-            }
-            else//否则将背包页的值归一，并重置排序
-            {
-                bag_page = 1;
-                HttpContext.Session["time_sort"] = HttpContext.Session["time_sort"] == null || time_sort == null ? 0 : time_sort;
-                HttpContext.Session["price_sort"] = HttpContext.Session["price_sort"] == null || price_sort == null ? 0 : price_sort;
-            }
-            if (bag_page < 1)//如果是非法操作，归零
-            {
-                HttpContext.Session["bag_page"] = 1;
-            }
-            else
-            {
-                HttpContext.Session["bag_page"] = bag_page;
-            }
-            int time_sort_clone = (int)HttpContext.Session["time_sort"];
-            int price_sort_clone = (int)HttpContext.Session["price_sort"];
-            if (time_sort_clone != 0)
-            {
-                price_sort = 0;
-            }
-            if(price_sort_clone != 0)
-            {
-                time_sort = 0;
-            }
-
-            if ((fl == null || choose == null)&&time_sort==null&&price_sort==null&&change_page==null)
+            List<Goods> goods;
+ 
+            if (fl == null || choose == null)
             {
                 HttpContext.Session["rare"] = "不限";
                 HttpContext.Session["type"] = "不限";
             }
-            else if (fl == 1 && time_sort == null && price_sort == null && change_page == null)
+            else if (fl == 1)
             {
                 HttpContext.Session["rare"] = choose;
             }
-            else if(fl ==2 && time_sort == null && price_sort == null && change_page == null)
+            else if (fl == 2)
             {
                 HttpContext.Session["type"] = choose;
             }
@@ -78,7 +51,7 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             {
                 goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.Rare == rare);
             }
-            else if(type != "不限")
+            else if (type != "不限")
             {
                 goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.type == type);
             }
@@ -87,9 +60,55 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0);
             }
 
-            if (time_sort_clone != 0)
+            HttpContext.Session["goods_or"] = goods_or;
+
+            await Sort(0, 0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Bag/Index.cshtml", goods);
+        }
+
+        //搜索
+        [HttpGet]
+        public async Task<ActionResult> Search(string search_value)
+        {
+            User user = (User)HttpContext.Session["user"];
+            IQueryable<Goods> goods_or;
+
+            List<Goods> goods;
+
+            if (search_value == null)
             {
-                if (time_sort_clone == 1)
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0);
+            }
+            else
+            {
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.Name.Contains(search_value));
+            }
+
+            HttpContext.Session["goods_or"] = goods_or;
+
+            await Sort(0, 0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Bag/Index.cshtml", goods);
+        }
+
+        //排序
+
+        public async Task<ActionResult> Sort(int? time_sort, int? price_sort)
+        {
+            IQueryable<Goods> goods_or = (IQueryable<Goods>)HttpContext.Session["goods_or"];
+            IOrderedQueryable<Goods> goods_ored;
+
+            List<Goods> goods;
+
+
+            if (time_sort == 1 || price_sort == 1)
+            {
+                if (time_sort == 1)
                 {
                     goods_ored = goods_or.OrderBy(b => b.GetDate);
                 }
@@ -97,10 +116,8 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 {
                     goods_ored = goods_or.OrderByDescending(b => b.GetDate);
                 }
-            }
-            else
-            {
-                if (price_sort_clone == 1)
+
+                if (price_sort == 1)
                 {
                     goods_ored = goods_or.OrderBy(b => b.Price);
                 }
@@ -109,13 +126,48 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                     goods_ored = goods_or.OrderByDescending(b => b.Price);
                 }
             }
+            else
+            {
+                goods_ored = goods_or.OrderBy(b => b.GetDate);
+            }
+
+            HttpContext.Session["time_sort"] = time_sort == null ? 0 : time_sort;
+            HttpContext.Session["price_sort"] = price_sort == null ? 0 : price_sort;
+            HttpContext.Session["goods_ored"] = goods_ored;
+
+            await ChangePage(0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Bag/Index.cshtml", goods);
+        }
+
+        //分页
+        public async Task<ActionResult> ChangePage(int? change_page)
+        {
+            List<Goods> goods;
+            List<Goods> goods_next;
+            int bag_page;
+
+            IOrderedQueryable<Goods> goods_ored = (IOrderedQueryable<Goods>)HttpContext.Session["goods_ored"];
+
+            if (change_page == 0)
+            {
+                bag_page = 1;
+            }
+            else
+            {
+                HttpContext.Session["bag_page"] = HttpContext.Session["bag_page"] == null ? 1 : HttpContext.Session["bag_page"];
+                bag_page = (int)HttpContext.Session["bag_page"] + (int)change_page;
+            }
+
 
             try//防止越界
             {
                 goods = await goods_ored.Skip(8 * (bag_page - 1)).Take(8).ToListAsync();
                 goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 goods = await goods_ored.Skip(0).Take(8).ToListAsync();
                 goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
@@ -123,14 +175,18 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
 
             if (goods_next.Count > 0)
             {
-                HttpContext.Session["bag_max_page"] = bag_page+1;
+                ViewBag.max_page = bag_page + 1;
             }
             else
             {
-                HttpContext.Session["bag_max_page"] = bag_page;
+                ViewBag.max_page = bag_page;
             }
 
-            return View(goods);
+
+            HttpContext.Session["bag_page"] = bag_page;
+            HttpContext.Session["goods"] = goods;
+
+            return View("~/Views/Bag/Index.cshtml",goods);
         }
 
         // 丢弃物品
@@ -209,10 +265,10 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             }
 
             User user = (User)HttpContext.Session["user"];
-           
 
-            
-            Goods addGoods=null;
+
+
+            Goods addGoods = null;
             addGoods = new Goods
             {
                 UserID = user.UserId,
@@ -225,7 +281,7 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 Location = 1
             };
             db.Goods.Add(addGoods);
-            
+
 
             await db.SaveChangesAsync();
 

@@ -1,3 +1,6 @@
+[v-cloak] {
+    display: none !important;
+}
 html, body {
     padding: 0;
     margin: 0;
@@ -1133,22 +1136,22 @@ h2 {
     border-radius: 2px;
 }
 
-    .search_bar input {
-        float: left;
-        height: 28px;
-        width: 190px;
-        margin: 0;
-        border: 0;
-        padding: 0 0 0 10px;
-        background: rgba(72,134,255,.16);
-        outline: none;
-        color: #E4E8EE;
-    }
+.searchbox {
+    float: left;
+    height: 28px;
+    width: 190px;
+    margin: 0;
+    border: 0;
+    padding: 0 0 0 10px;
+    background: rgba(72,134,255,.16);
+    outline: none;
+    color: #E4E8EE;
+}
 
 .searchbtn {
     background-color: #3F5D97;
     color: #E1E5EC;
-    height: 28px;
+    height: 29px;
     width: 100px;
     line-height: 28px;
     display: block;

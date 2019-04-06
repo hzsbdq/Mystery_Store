@@ -37,3 +37,9 @@ function swapPic() {
     document.randimg.src = images[useRand].src
     setTimeout('swapPic()', 2000);
 }
+
+function subm(){
+
+Document.charset="gb2312";
+
+}

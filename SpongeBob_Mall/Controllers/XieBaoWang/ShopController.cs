@@ -20,131 +20,123 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
 
         private readonly MySqlContext db = new MySqlContext();
         // TO DO 查看所有上架物品 根据上架时间排序并分页
-        public async Task<ActionResult> Index(int? choose,int? sort)
+        public async Task<ActionResult> Index(int? fl, string choose, int? time_sort, int? price_sort, int? change_page)
         {
-            //IEnumerable
-        //XElement
-        // XmlDocument
-        //List<Goods> goods;
-        //int? choose_number;
-        //ViewBag.page_number = 1;
-        //if (HttpContext.Session["choose_number"] == null)
-        //{
-        //    choose_number = null;
-        //}
-        //else
-        //{
-        //    choose_number = (int?)HttpContext.Session["choose_number"];
-        //}
+            List<Goods> goods;
+            List<Goods> goods_next;
+            IQueryable<Goods> goods_or;
+            IOrderedQueryable<Goods> goods_ored;
+            int bag_page = 0;                             //初始化背包页面的值
+            if (HttpContext.Session["bag_page"] == null)  //如果session中没有值，初始化值
+            {
+                HttpContext.Session["bag_page"] = 1;
+            }
+            if (change_page != null)//如果是页操作，更新背包页的值
+            {
+                bag_page = (int)((int)HttpContext.Session["bag_page"] + change_page);
+            }
+            else//否则将背包页的值归一，并重置排序
+            {
+                bag_page = 1;
+                HttpContext.Session["time_sort"] = HttpContext.Session["time_sort"] == null || time_sort == null ? 0 : time_sort;
+                HttpContext.Session["price_sort"] = HttpContext.Session["price_sort"] == null || price_sort == null ? 0 : price_sort;
+            }
+            if (bag_page < 1)//如果是非法操作，归一
+            {
+                HttpContext.Session["bag_page"] = 1;
+            }
+            else
+            {
+                HttpContext.Session["bag_page"] = bag_page;
+            }
+            int time_sort_clone = (int)HttpContext.Session["time_sort"];
+            int price_sort_clone = (int)HttpContext.Session["price_sort"];
+            if (time_sort_clone != 0)
+            {
+                price_sort = 0;
+            }
+            if (price_sort_clone != 0)
+            {
+                time_sort = 0;
+            }
 
+            if ((fl == null || choose == null) && time_sort == null && price_sort == null && change_page == null)
+            {
+                HttpContext.Session["rare"] = "不限";
+                HttpContext.Session["type"] = "不限";
+            }
+            else if (fl == 1 && time_sort == null && price_sort == null && change_page == null)
+            {
+                HttpContext.Session["rare"] = choose;
+            }
+            else if (fl == 2 && time_sort == null && price_sort == null && change_page == null)
+            {
+                HttpContext.Session["type"] = choose;
+            }
+            string rare = (string)HttpContext.Session["rare"];
+            string type = (string)HttpContext.Session["type"];
+            if (rare != "不限" && type != "不限")
+            {
+                goods_or = db.Goods.Where(b => b.State == 1 && b.Map.Rare == rare && b.Map.type == type);
+            }
+            else if (rare != "不限")
+            {
+                goods_or = db.Goods.Where(b => b.State == 1 && b.Map.Rare == rare);
+            }
+            else if (type != "不限")
+            {
+                goods_or = db.Goods.Where(b => b.State == 1 && b.Map.type == type);
+            }
+            else
+            {
+                goods_or = db.Goods.Where(b => b.State == 1);
+            }
 
-            //if (choose == null && sort == null)
-            //{
-            //    goods = await db.Goods.SqlQuery("select * from spongebob_mall.goods where state=1 order by shelvesdate limit 0,15").ToListAsync();
-            //    return View(goods);
-            //}
-            //else if (sort == null)
-            //{
-            //    if (choose_number != null&&choose_number!=0)//之前指定过分类
-            //    {
-            //        if (choose_number > 999999)//指定过’类型‘分类
-            //        {
-            //            if (choose_number % 1000000 != 0)//指定过‘稀有度’分类
-            //            {
-            //                if (choose > 999999)//当前请求指定的是‘类型’分类
-            //                {
-            //                    choose_number = choose_number % 1000000 + choose;
-            //                }
-            //                else if (choose == -2)//当前指定的是‘类型不限’
-            //                {
-            //                    choose_number = choose_number % 1000000;
-            //                }
-            //                else if(choose == -1)//当前指定的是‘稀有度不限’
-            //                {
-            //                    choose_number = choose_number / 1000000 * 1000000;
-            //                }
-            //                else//当前请求指定的是‘稀有度’分类
-            //                {
-            //                    choose_number = (choose_number / 1000000 * 1000000) + choose;
-            //                }
-            //            }
-            //            else//没有指定过‘稀有度’分类
-            //            {
-            //                if (choose > 999999)//当前请求指定的是‘类型’分类
-            //                {
-            //                    choose_number = choose;
-            //                }
-            //                else if (choose == -2)//当前指定的是‘类型不限’
-            //                {
-            //                    choose_number = 0;
-            //                }
-            //                else//当前请求指定的是‘稀有度’分类
-            //                {
-            //                    choose_number += choose;
-            //                }
-            //            }
-            //        }
-            //        else//只指定过‘稀有度’分类
-            //        {
-            //            if (choose > 999999)//当前请求指定的是‘类型’分类
-            //            {
-            //                choose_number += choose;
-            //            }
-            //            else if (choose == -1)//当前指定的是‘稀有度不限’
-            //            {
-            //                choose_number = 0;
-            //            }
-            //            else//当前请求指定的是‘稀有度’分类
-            //            {
-            //                choose_number = choose;
-            //            }
-            //        }
-            //    }
-            //    else//没有指定过分类
-            //    {
-            //        if (choose == -1 || choose == -2)
-            //        {
-            //            choose_number = 0;
-            //        }
-            //        else
-            //        {
-            //            choose_number = choose;
-            //        }
-            //    }
-            //}
-            //else // TO DO 排序逻辑
-            //{
-            //    return null;
-            //}
-            //int mapid = (int)choose_number;
-            //if (mapid > 999999)
-            //{
-            //    if (mapid % 1000000 == 0)
-            //    {
-            //        goods = await db.Goods.SqlQuery("select * from spongebob_mall.goods where " +
-            //        "floor(mapid/1000000)={0} and state=1 order by shelvesdate limit 0,15", mapid / 1000000).ToListAsync();
-            //    }
-            //    else
-            //    {
-            //        goods = await db.Goods.SqlQuery("select * from spongebob_mall.goods where " +
-            //        "floor(mapid/10000)={0} and state=1 order by shelvesdate limit 0,15", mapid / 10000).ToListAsync();
-            //    }
-            //}
-            //else if (mapid == 0)
-            //{
-            //    goods = await db.Goods.SqlQuery("select * from spongebob_mall.goods where state=1 order by shelvesdate limit 0,15").ToListAsync();
-            //}
-            //else
-            //{
-            //    goods = await db.Goods.SqlQuery("select * from spongebob_mall.goods where " +
-            //        "floor(mapid%1000000/10000)={0} and state=1 order by shelvesdate limit 0,15",mapid/10000).ToListAsync();
+            if (time_sort_clone != 0)
+            {
+                if (time_sort_clone == 1)
+                {
+                    goods_ored = goods_or.OrderBy(b => b.GetDate);
+                }
+                else
+                {
+                    goods_ored = goods_or.OrderByDescending(b => b.GetDate);
+                }
+            }
+            else
+            {
+                if (price_sort_clone == 1)
+                {
+                    goods_ored = goods_or.OrderBy(b => b.Price);
+                }
+                else
+                {
+                    goods_ored = goods_or.OrderByDescending(b => b.Price);
+                }
+            }
 
-            //}
-            //HttpContext.Session["choose_number"] = choose_number;
-            //return View(goods);
+            try//防止越界
+            {
+                goods = await goods_ored.Skip(8 * (bag_page - 1)).Take(8).ToListAsync();
+                goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                goods = await goods_ored.Skip(0).Take(8).ToListAsync();
+                goods_next = await goods_ored.Skip(8 * (bag_page)).Take(1).ToListAsync();
+            }
 
-            return View();
-        }
+            if (goods_next.Count > 0)
+            {
+                ViewBag.max_page = bag_page + 1;
+            }
+            else
+            {
+                ViewBag.max_page = bag_page;
+            }
+
+            return View(goods);
+    }
 
         public async Task<ActionResult> ChangePage(int? pageNumber)
         {
