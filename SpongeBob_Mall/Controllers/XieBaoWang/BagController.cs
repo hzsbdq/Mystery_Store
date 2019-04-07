@@ -106,29 +106,36 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             List<Goods> goods;
 
 
-            if (time_sort == 1 || price_sort == 1)
+            
+            if (time_sort == 0 && price_sort == 0 || time_sort == null && price_sort == null)
+            {
+                goods_ored = goods_or.OrderBy(b => b.GetDate);
+            }
+            else
             {
                 if (time_sort == 1)
                 {
                     goods_ored = goods_or.OrderBy(b => b.GetDate);
                 }
-                else
+                else if (time_sort == 2)
                 {
                     goods_ored = goods_or.OrderByDescending(b => b.GetDate);
                 }
-
-                if (price_sort == 1)
-                {
-                    goods_ored = goods_or.OrderBy(b => b.Price);
-                }
                 else
                 {
-                    goods_ored = goods_or.OrderByDescending(b => b.Price);
+                    if (price_sort == 1)
+                    {
+                        goods_ored = goods_or.OrderBy(b => b.Price);
+                    }
+                    else if (price_sort == 2)
+                    {
+                        goods_ored = goods_or.OrderByDescending(b => b.Price);
+                    }
+                    else
+                    {
+                        goods_ored = goods_or.OrderBy(b => b.GetDate);
+                    }
                 }
-            }
-            else
-            {
-                goods_ored = goods_or.OrderBy(b => b.GetDate);
             }
 
             HttpContext.Session["time_sort"] = time_sort == null ? 0 : time_sort;
