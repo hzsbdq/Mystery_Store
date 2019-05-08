@@ -98,31 +98,39 @@
             <div class="main_goods_list">
                 @foreach (var item in Model)
                 {
-                <a href="#" class="goods_div">
+                    <div class="goods_div" id="show_@item.GoodsId" onmouseenter="ShowShop(this,'hide_@item.GoodsId')">
 
-                    <div class="goods_img">
-                        <img class="goodsimg" src="../img/sp/@item.Map.Picture" />
-                    </div>
-                    <div class="goods_date">
-                        @item.Map.Name
-                    </div>
-                    <br />
-                    <div class="goods_price">
-                        参考价格:￥999<small>.99</small>
-                    </div>
-                    @{
-                                XmlNode root3 = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
-                                XmlNodeList root4 = root3.ChildNodes;
-                                foreach (XmlNode i in root4)
+                        <div class="goods_img">
+                            <img class="goodsimg" src="../img/sp/@item.Map.Picture" />
+                        </div>
+                        <div class="goods_date">
+                            @item.Map.Name
+                        </div>
+                        <br />
+                        <div class="goods_price">
+                            参考价格:暂无
+                        </div>
+                        @{
+                            XmlNode root3 = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
+                            XmlNodeList root4 = root3.ChildNodes;
+                            foreach (XmlNode i in root4)
+                            {
+                                if (i.FirstChild.InnerText == item.Map.Rare)
                                 {
-                                    if (i.FirstChild.InnerText == item.Map.Rare)
-                                    {
-                                <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Map.Rare</div>
-                                break;
+                                    <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Map.Rare</div>
+                                    break;
+                                }
                             }
-                    }
-                    }
-                </a>
+                        }
+                    </div>
+                    <form action="/Bag/Putaway" method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="return firm(this)">
+                        <div id="sell_price" name="text_price">
+                            上架价格<br><br>
+                            <input name="goodsId" value="@item.GoodsId" style="display:none"/>
+                            <input id="sell_ipt" name="goodsPrice" ninput="value=value.replace(/[^\d]/g,'')" autocomplete="off">
+                        </div>
+                        <input id="sell_btn" value="上架" type="submit">
+                    </form>
                 }
             </div>
             <div class="change_page">

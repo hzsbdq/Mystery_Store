@@ -222,41 +222,27 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             return Redirect("Index");
         }
         // 上架物品
-        public async Task<ActionResult> Putaway(int goodsId, int amount, int price)
+        [HttpPost]
+        public async Task<ActionResult> Putaway(int goodsId, int goodsPrice)
         {
-            Goods goods = await db.Goods.Where(b => b.GoodsId == goodsId && b.Amount >= amount).FirstOrDefaultAsync();
+            Goods goods = null;
+            goods = await db.Goods.Where(b => b.GoodsId == goodsId).FirstOrDefaultAsync();
             if (goods == null)
             {
-                Response.Redirect("Index?errorMSG=2");
+                //to do 不存在指定物品
             }
-            else if (goods.State == 1 || goods.State == 2)
+            User user = (User)HttpContext.Session["user"];
+            if (goods.UserID != user.UserId)
             {
-                Response.Redirect("Index?errorMSG=3");
+                //to do 此物品不属于该用户
             }
-            if (goods.Amount - amount == 0)
-            {
-                goods.State = 1;
-                db.Entry(goods).State = EntityState.Modified;
-            }
-            else
-            {
-                goods.Amount -= amount;
-                db.Entry(goods).State = EntityState.Modified;
-                Goods newGoods = new Goods
-                {
-                    UserID = goods.UserID,
-                    MapID = goods.MapID,
-                    Amount = amount,
-                    Price = price,
-                    GetDate = goods.GetDate,
-                    ShelvesDate = DateTime.Now,
-                    CollectionTag = 0,
-                    State = 1,
-                    Location = goods.Location
-                };
-                db.Goods.Add(newGoods);
-            }
+            //更新物品状态
+            db.Goods.Attach(goods);
+            goods.State = 1;
+            goods.Price = goodsPrice;
+            goods.ShelvesDate = DateTime.Now;
             await db.SaveChangesAsync();
+            
             return Redirect("Index");
         }
 

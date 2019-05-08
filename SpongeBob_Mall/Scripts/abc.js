@@ -43,3 +43,23 @@ function subm(){
 Document.charset="gb2312";
 
 }
+
+function ShowShop(shop,id) {
+    shop.style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+}
+
+function HideShop(shop,id) {
+    shop.style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+}
+
+function firm(price) {
+    with (price) {
+        if (confirm("你确定以￥" + goodsPrice.value + "上架吗")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

@@ -64,13 +64,57 @@
                     <td class="tbcen">已认证</td>
                     <td class="tbright"></td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td class="tbleft">密码设置</td>
                     <td class="tbcen"></td>
                     <td class="tbright"><input type="button" href="#" class="btnblue" value="修改密码"></td>
+                </tr>*@
+                <tr>
+                    <td class="tbleft">家庭住址</td>
+                    <td class="tbcen"></td>
+                    <td class="tbright">
+                        <select onchange="selectnew(this.options[this.options.selectedIndex].text)">
+                            <option>请选择</option>
+                            <option>浙江</option>
+                            <option>江苏</option>
+                        </select>
+                        <select id="sj">
+                            <option>请选择省份</option>
+                        </select>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 
 </div>
+<script>
+    function selectnew(sf) {
+        var select = document.getElementById("sj");
+        var zj = ['杭州', '宁波'];
+        var js = ['苏州', '无锡'];
+        var other = ['请选择省份'];
+        clear(select);
+        switch (sf) {
+            case '浙江':
+                addnop(zj, select);
+                break;
+            case '江苏':
+                addnop(js, select);
+                break;
+            default:
+                addnop(other, select);
+                break;
+        }
+    }
+    function addnop(sz,select) {
+        for (var i = 0; i < sz.length; i++) {
+            var nop = document.createElement("option");
+            nop.text = sz[i];
+            select.options.add(nop);
+        }
+    }
+    function clear(select) {
+        select.length = 0;
+    }
+</script>

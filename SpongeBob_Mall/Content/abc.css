@@ -1,25 +1,31 @@
 [v-cloak] {
     display: none !important;
 }
+
 html, body {
     padding: 0;
     margin: 0;
     height: 100%;
 }
-ul li{
-    list-style-type:none;
+
+ul li {
+    list-style-type: none;
 }
-a{
+
+a {
     text-decoration: none;
     color: inherit;
 }
+
 input, textarea {
     outline: none;
     border: none;
 }
+
 input {
     outline: none;
 }
+
 .top {
     height: 100px;
     width: 100%;
@@ -91,7 +97,7 @@ input {
     width: 260px;
     height: 100px;
     padding: 0 20px 10px 20px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .hl {
@@ -291,7 +297,7 @@ input {
     transition: all .25s cubic-bezier(.165,.84,.44,1),opacity 1ms linear;
     cursor: pointer;
     padding: 0 0px 0px 0.5px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
     .login-in-btn2:focus, .login-in-btn2:hover {
@@ -1166,7 +1172,18 @@ a.searchbtn:hover {
     height: 485px;
 }
 
+.goods_div {
+    position: relative;
+    float: left;
+    width: 210px;
+    height: 225px;
+    background-color: #fff;
+    border: 1px solid #E4E4E4;
+    margin: 10px 5px 0 9px;
+}
+
 a.goods_div {
+    position: relative;
     float: left;
     width: 210px;
     height: 225px;
@@ -1317,4 +1334,60 @@ a.chpa:hover {
 
 .arcana {
     color: rgb(154,204,76);
+}
+
+#sell_price {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 23px;
+}
+
+.price_text {
+    color: #EEA20E;
+    font-size: 17px;
+}
+
+#sell_btn {
+    position: absolute;
+    bottom: 10px;
+    width: 100px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #eea20e;
+    line-height: 40px;
+    color: white;
+    border-radius: 5px;
+}
+
+#sell_ipt {
+    width: 160px;
+    height: 20px;
+    border: 1px solid red;
+}
+
+#sell_btn2 {
+    position: absolute;
+    bottom: 60px;
+    width: 100px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #eea20e;
+    line-height: 40px;
+    color: white;
+    border-radius: 5px;
+}
+
+.goods_div_hide {
+    display: none;
+    position: relative;
+    float: left;
+    width: 210px;
+    height: 225px;
+    background-color: #fff;
+    border: 1px solid #E4E4E4;
+    margin: 10px 5px 0 9px;
 }
