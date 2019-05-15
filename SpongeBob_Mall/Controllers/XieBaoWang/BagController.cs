@@ -223,18 +223,45 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
         }
         // 上架物品
         [HttpPost]
-        public async Task<ActionResult> Putaway(int goodsId, int goodsPrice)
+        public async Task<ActionResult> Putaway(Models.SelectList selectList)
         {
+            var data = new List<Object>();
+            int goodsId = 0;
+            int goodsPrice = 0;
+            if (selectList.text != null)
+            {
+                string[] dt = selectList.text.Split(',');
+                goodsId = int.Parse(dt[0]);
+                goodsPrice = int.Parse(dt[1]);
+            }
+            else
+            {
+                data.Add(new
+                {
+                    message = "非法请求"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
             Goods goods = null;
             goods = await db.Goods.Where(b => b.GoodsId == goodsId).FirstOrDefaultAsync();
             if (goods == null)
             {
-                //to do 不存在指定物品
+                // 不存在指定物品
+                data.Add(new
+                {
+                    message = "不存在指定物品"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
             User user = (User)HttpContext.Session["user"];
             if (goods.UserID != user.UserId)
             {
-                //to do 此物品不属于该用户
+                // 此物品不属于该用户
+                data.Add(new
+                {
+                    message = "此物品不属于该用户"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
             //更新物品状态
             db.Goods.Attach(goods);

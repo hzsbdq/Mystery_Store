@@ -57,9 +57,44 @@ function HideShop(shop,id) {
 function firm(price) {
     with (price) {
         if (confirm("你确定以￥" + goodsPrice.value + "上架吗")) {
+            PutawayJudge(goodsId.value, goodsPrice.value);
             return true;
         } else {
             return false;
         }
     }
+}
+
+function PayJudge(goodsid) {
+    var jsonObj = { 'type': "goodsid", 'text': goodsid };
+    //jsonObj.push({ "type": "goodsid", "text": goodsid });
+    myAjax('/Shop/Pay', jsonObj, null, function (re) {
+        $.each(re, function (i, eobj) {
+            alert(eobj.message);
+        })
+    });
+}
+
+function PutawayJudge(goodsid, goodsprice) {
+    var jsonObj = { 'type': "putaway", 'text': goodsid + ',' + goodsprice };
+    myAjax('/Bag/Putaway', jsonObj, null, function (re) {
+        $.each(re, function (i, eobj) {
+            alert(eobj.message);
+        })
+    });
+}
+
+function myAjax(action, dt, type, callback) {
+    $.ajax({
+        url: action,
+        type: type || "POST",
+        data: dt,
+        cache: false,
+        success: function (result) {
+            callback && callback(result);
+        },
+        error: function (result) {
+            alert('System Error, Please Contact Admin!');
+        }
+    });
 }

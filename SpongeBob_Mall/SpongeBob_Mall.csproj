@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Models\Goods.cs" />
     <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\SelectList.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

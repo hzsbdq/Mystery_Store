@@ -123,13 +123,13 @@
                             }
                         }
                     </div>
-                    <form action="/Bag/Putaway" method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="return firm(this)">
+                    <form method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="return firm(this)">
                         <div id="sell_price" name="text_price">
                             上架价格<br><br>
                             <input name="goodsId" value="@item.GoodsId" style="display:none"/>
                             <input id="sell_ipt" name="goodsPrice" ninput="value=value.replace(/[^\d]/g,'')" autocomplete="off">
                         </div>
-                        <input id="sell_btn" value="上架" type="submit">
+                        <input class="sell_btn" value="上架" type="submit">
                     </form>
                 }
             </div>

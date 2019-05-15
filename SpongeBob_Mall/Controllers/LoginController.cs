@@ -77,6 +77,7 @@ namespace SpongeBob_Mall.Controllers
             User user = await db.Users.Where(b => b.Username == username).FirstOrDefaultAsync();
             if (user != null)
             {
+                //用户名已存在
                 Response.Redirect("Register?errorMSG=3");
                 return null;
             }

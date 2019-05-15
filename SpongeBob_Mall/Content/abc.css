@@ -1349,8 +1349,9 @@ a.chpa:hover {
     font-size: 17px;
 }
 
-#sell_btn {
+.sell_btn {
     position: absolute;
+    display:block;
     bottom: 10px;
     width: 100px;
     height: 40px;
@@ -1368,8 +1369,9 @@ a.chpa:hover {
     border: 1px solid red;
 }
 
-#sell_btn2 {
+.sell_btn2 {
     position: absolute;
+    display:block;
     bottom: 60px;
     width: 100px;
     height: 40px;

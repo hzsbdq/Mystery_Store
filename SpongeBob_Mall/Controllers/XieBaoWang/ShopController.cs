@@ -12,6 +12,8 @@ using PagedList;
 using System.Xml;
 using System.Xml.Linq;
 using System.Collections;
+using System.Web.Script.Serialization;
+using System.IO;
 
 namespace SpongeBob_Mall.Controllers.XieBaoWang
 {
@@ -19,57 +21,30 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
     {
 
         private readonly MySqlContext db = new MySqlContext();
-        // TO DO 查看所有上架物品 根据上架时间排序并分页
-        public async Task<ActionResult> Index(int? fl, string choose, int? time_sort, int? price_sort, int? change_page)
+
+
+        public async Task<ActionResult> Index()
         {
             List<Goods> goods;
-            List<Goods> goods_next;
+            await Choose(null, null);
+            goods = (List<Goods>)HttpContext.Session["goods"];
+            return View(goods);
+        }
+        public async Task<ActionResult> Choose(int? fl, string choose)
+        {
             IQueryable<Goods> goods_or;
-            IOrderedQueryable<Goods> goods_ored;
-            int bag_page = 0;                             //初始化背包页面的值
-            if (HttpContext.Session["bag_page"] == null)  //如果session中没有值，初始化值
-            {
-                HttpContext.Session["bag_page"] = 1;
-            }
-            if (change_page != null)//如果是页操作，更新背包页的值
-            {
-                bag_page = (int)((int)HttpContext.Session["bag_page"] + change_page);
-            }
-            else//否则将背包页的值归一，并重置排序
-            {
-                bag_page = 1;
-                HttpContext.Session["time_sort"] = HttpContext.Session["time_sort"] == null || time_sort == null ? 0 : time_sort;
-                HttpContext.Session["price_sort"] = HttpContext.Session["price_sort"] == null || price_sort == null ? 0 : price_sort;
-            }
-            if (bag_page < 1)//如果是非法操作，归一
-            {
-                HttpContext.Session["bag_page"] = 1;
-            }
-            else
-            {
-                HttpContext.Session["bag_page"] = bag_page;
-            }
-            int time_sort_clone = (int)HttpContext.Session["time_sort"];
-            int price_sort_clone = (int)HttpContext.Session["price_sort"];
-            if (time_sort_clone != 0)
-            {
-                price_sort = 0;
-            }
-            if (price_sort_clone != 0)
-            {
-                time_sort = 0;
-            }
+            List<Goods> goods;
 
-            if ((fl == null || choose == null) && time_sort == null && price_sort == null && change_page == null)
+            if (fl == null || choose == null)
             {
                 HttpContext.Session["rare"] = "不限";
                 HttpContext.Session["type"] = "不限";
             }
-            else if (fl == 1 && time_sort == null && price_sort == null && change_page == null)
+            else if (fl == 1)
             {
                 HttpContext.Session["rare"] = choose;
             }
-            else if (fl == 2 && time_sort == null && price_sort == null && change_page == null)
+            else if (fl == 2)
             {
                 HttpContext.Session["type"] = choose;
             }
@@ -77,7 +52,7 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             string type = (string)HttpContext.Session["type"];
             if (rare != "不限" && type != "不限")
             {
-                goods_or = db.Goods.Where(b => b.State == 1 && b.Map.Rare == rare && b.Map.type == type);
+                goods_or = db.Goods.Where(b=>b.State == 1 && b.Map.Rare == rare && b.Map.type == type);
             }
             else if (rare != "不限")
             {
@@ -92,28 +67,114 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 goods_or = db.Goods.Where(b => b.State == 1);
             }
 
-            if (time_sort_clone != 0)
+            HttpContext.Session["goods_or"] = goods_or;
+
+            await Sort(0, 0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Shop/Index.cshtml", goods);
+        }
+
+        //搜索
+        [HttpGet]
+        public async Task<ActionResult> Search(string search_value)
+        {
+            User user = (User)HttpContext.Session["user"];
+            IQueryable<Goods> goods_or;
+
+            List<Goods> goods;
+
+            if (search_value == null)
             {
-                if (time_sort_clone == 1)
-                {
-                    goods_ored = goods_or.OrderBy(b => b.GetDate);
-                }
-                else
-                {
-                    goods_ored = goods_or.OrderByDescending(b => b.GetDate);
-                }
+                goods_or = db.Goods.Where(b =>b.State == 1);
             }
             else
             {
-                if (price_sort_clone == 1)
+                goods_or = db.Goods.Where(b =>b.State == 1 && b.Map.Name.Contains(search_value));
+            }
+
+            HttpContext.Session["goods_or"] = goods_or;
+
+            await Sort(0, 0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Shop/Index.cshtml", goods);
+        }
+
+        //排序
+
+        public async Task<ActionResult> Sort(int? time_sort, int? price_sort)
+        {
+            IQueryable<Goods> goods_or = (IQueryable<Goods>)HttpContext.Session["goods_or"];
+            IOrderedQueryable<Goods> goods_ored;
+
+            List<Goods> goods;
+
+
+
+            if (time_sort == 0 && price_sort == 0 || time_sort == null && price_sort == null)
+            {
+                goods_ored = goods_or.OrderBy(b => b.GetDate);
+            }
+            else
+            {
+                if (time_sort == 1)
                 {
-                    goods_ored = goods_or.OrderBy(b => b.Price);
+                    goods_ored = goods_or.OrderBy(b => b.GetDate);
+                }
+                else if (time_sort == 2)
+                {
+                    goods_ored = goods_or.OrderByDescending(b => b.GetDate);
                 }
                 else
                 {
-                    goods_ored = goods_or.OrderByDescending(b => b.Price);
+                    if (price_sort == 1)
+                    {
+                        goods_ored = goods_or.OrderBy(b => b.Price);
+                    }
+                    else if (price_sort == 2)
+                    {
+                        goods_ored = goods_or.OrderByDescending(b => b.Price);
+                    }
+                    else
+                    {
+                        goods_ored = goods_or.OrderBy(b => b.GetDate);
+                    }
                 }
             }
+
+            HttpContext.Session["time_sort"] = time_sort == null ? 0 : time_sort;
+            HttpContext.Session["price_sort"] = price_sort == null ? 0 : price_sort;
+            HttpContext.Session["goods_ored"] = goods_ored;
+
+            await ChangePage(0);
+
+            goods = (List<Goods>)HttpContext.Session["goods"];
+
+            return View("~/Views/Shop/Index.cshtml", goods);
+        }
+
+        //分页
+        public async Task<ActionResult> ChangePage(int? change_page)
+        {
+            List<Goods> goods;
+            List<Goods> goods_next;
+            int bag_page;
+
+            IOrderedQueryable<Goods> goods_ored = (IOrderedQueryable<Goods>)HttpContext.Session["goods_ored"];
+
+            if (change_page == 0)
+            {
+                bag_page = 1;
+            }
+            else
+            {
+                HttpContext.Session["bag_page"] = HttpContext.Session["bag_page"] == null ? 1 : HttpContext.Session["bag_page"];
+                bag_page = (int)HttpContext.Session["bag_page"] + (int)change_page;
+            }
+
 
             try//防止越界
             {
@@ -135,20 +196,74 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 ViewBag.max_page = bag_page;
             }
 
-            return View(goods);
-    }
 
-        public async Task<ActionResult> ChangePage(int? pageNumber)
-        {
-            return null;
+            HttpContext.Session["bag_page"] = bag_page;
+            HttpContext.Session["goods"] = goods;
+
+            return View("~/Views/Bag/Index.cshtml", goods);
         }
 
-        // TO DO 查看同一种物品的列表，分页
-
-        // TO DO 通过分类查看物品，分页
-
         // TO DO 收藏操作
+        public async Task<ActionResult> Collect(int goodsId)
+        {
+            return Redirect("index");
+        }
+
 
         // TO DO 购买（直接发到背包所以需要判断背包是否还有空间，后期可能要改做一个保存箱）直接跳转到GetGoods的Action
+        [HttpPost]
+        public async Task<ActionResult> Pay(Models.SelectList selectList)
+        {
+            var data = new List<Object>();
+
+            if (selectList.text != null)
+            {
+                int goodsId = int.Parse(selectList.text);
+
+                Goods goods = null;
+                goods = await db.Goods.Where(b => b.GoodsId == goodsId).FirstOrDefaultAsync();
+                if (goods == null)
+                {
+                    //to do 不存在指定物品
+                    data.Add(new
+                    {
+                        message = "不存在指定物品"
+                    });
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                User user = (User)HttpContext.Session["user"];
+                if (goods.UserID == user.UserId)
+                {
+                    //to do 不能购买自己的物品
+                    data.Add(new
+                    {
+                        message = "不能购买自己的物品"
+                    });
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                if (user.Property < goods.Price)
+                {
+                    //to do 余额不足
+                    data.Add(new
+                    {
+                        message = "余额不足"
+                    });
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                //更新物品状态,扣除余额
+                db.Users.Attach(user);
+                user.Property -= goods.Price;
+                await db.SaveChangesAsync();
+                db.Goods.Attach(goods);
+                goods.UserID = user.UserId;
+                goods.State = 0;
+                goods.GetDate = DateTime.Now;
+                await db.SaveChangesAsync();
+            }
+
+            
+
+            return Redirect("index");
+        }
     }
 }
