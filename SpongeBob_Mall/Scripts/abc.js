@@ -84,6 +84,15 @@ function PutawayJudge(goodsid, goodsprice) {
     });
 }
 
+function DownShop(goodsid) {
+    var jsonObj = { 'type': "goodsid", 'text': goodsid };
+    myAjax('/Bag/DownShop', jsonObj, null, function (re) {
+        $.each(re, function (i, eobj) {
+            alert(eobj.message);
+        })
+    });
+}
+
 function myAjax(action, dt, type, callback) {
     $.ajax({
         url: action,

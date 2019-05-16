@@ -23,14 +23,19 @@
                     <ul>
                         <li>
 
-                                <strong>@Html.ActionLink("首页","Index","Home")</strong>
+                            <strong>@Html.ActionLink("首页", "Index", "Home")</strong>
                         </li>
                         <li>
                             <strong>@Html.ActionLink("饰品市场", "Index", "Shop")</strong>
                         </li>
                         <li>
                             <strong>
-                                @Html.ActionLink("背包","Index","Bag")
+                                @Html.ActionLink("背包", "Index", "Bag")
+                            </strong>
+                        </li>
+                        <li>
+                            <strong>
+                                @Html.ActionLink("已上架商品", "ShowShelvesList", "Bag")
                             </strong>
                         </li>
                     </ul>

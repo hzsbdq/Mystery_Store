@@ -128,8 +128,6 @@
                             价格<br><br>
                             <div class="price_text">￥@item.Price</div>
                         </div>
-                        @*@Html.ActionLink("收藏", "Collect", new { goodsId = item.GoodsId }, new { @class = "sell_btn2" })
-        @Html.ActionLink("确认购买", "Pay", new { goodsId = item.GoodsId }, new { @class = "sell_btn",@onclick = "PayJudge('"+item.GoodsId+"')" })*@
                         <div class="sell_btn" onclick="PayJudge('@item.GoodsId')">确认购买</div>
                     </form>
                 }

@@ -209,8 +209,7 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             return Redirect("index");
         }
 
-
-        // TO DO 购买（直接发到背包所以需要判断背包是否还有空间，后期可能要改做一个保存箱）直接跳转到GetGoods的Action
+        // 购买（直接发到背包所以需要判断背包是否还有空间，后期可能要改做一个保存箱）直接跳转到GetGoods的Action
         [HttpPost]
         public async Task<ActionResult> Pay(Models.SelectList selectList)
         {

@@ -18,11 +18,22 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
         public async Task<ActionResult> Index()
         {
             List<Goods> goods;
-            await Choose(null,null);
+            await Choose(null,null,0);
             goods = (List<Goods>)HttpContext.Session["goods"];
             return View(goods);
         }
-        public async Task<ActionResult> Choose(int? fl, string choose)
+
+        //获取已上架商品
+        public async Task<ActionResult> ShowShelvesList()
+        {
+            List<Goods> goods;
+            await Choose(null, null,1);
+            goods = (List<Goods>)HttpContext.Session["goods"];
+            return View(goods);
+        }
+
+        //选择查看分类
+        public async Task<ActionResult> Choose(int? fl, string choose,int state)
         {
             User user = (User)HttpContext.Session["user"];
             IQueryable<Goods> goods_or;
@@ -45,19 +56,19 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             string type = (string)HttpContext.Session["type"];
             if (rare != "不限" && type != "不限")
             {
-                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.Rare == rare && b.Map.type == type);
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == state && b.Map.Rare == rare && b.Map.type == type);
             }
             else if (rare != "不限")
             {
-                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.Rare == rare);
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == state && b.Map.Rare == rare);
             }
             else if (type != "不限")
             {
-                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0 && b.Map.type == type);
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == state && b.Map.type == type);
             }
             else
             {
-                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == 0);
+                goods_or = db.Goods.Where(b => b.UserID == user.UserId && b.State == state);
             }
 
             HttpContext.Session["goods_or"] = goods_or;
@@ -271,6 +282,67 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
             await db.SaveChangesAsync();
             
             return Redirect("Index");
+        }
+
+        //下架物品
+        [HttpPost]
+        public async Task<ActionResult> DownShop(Models.SelectList selectList)
+        {
+            var data = new List<Object>();
+            int goodsId = 0;
+            if (selectList.text != null)
+            {
+                goodsId = int.Parse(selectList.text);
+            }
+            else
+            {
+                data.Add(new
+                {
+                    message = "非法请求"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            Goods goods = null;
+            goods = await db.Goods.Where(b => b.GoodsId == goodsId).FirstOrDefaultAsync();
+            if (goods == null)
+            {
+                // 不存在指定物品
+                data.Add(new
+                {
+                    message = "不存在指定物品"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            User user = (User)HttpContext.Session["user"];
+            if (goods.UserID != user.UserId)
+            {
+                // 此物品不属于该用户
+                data.Add(new
+                {
+                    message = "不能下架别人的商品"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            if (goods.State == 0)
+            {
+                // 已经处于下架状态
+                data.Add(new
+                {
+                    message = "不要重复下架"
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            //更新物品状态
+            db.Goods.Attach(goods);
+            goods.State = 0;
+            goods.Price = 0;
+            goods.ShelvesDate = DateTime.Now;
+            await db.SaveChangesAsync();
+
+            List<Goods> goodss;
+            await ShowShelvesList();
+            goodss = (List<Goods>)HttpContext.Session["goods"];
+            return View("~/Views/Bag/ShowShelvesList.cshtml", goodss);
         }
 
         // TO DO 获得物品，需要便利背包空位，放在最小的空位上或同一种物品数量加1，如果没有空位就不允许存入，如果是第一手物品就记录获取时间
