@@ -249,15 +249,26 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                     });
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                //更新物品状态,扣除余额
+                User old_user = goods.User;
+                //扣除余额
                 db.Users.Attach(user);
                 user.Property -= goods.Price;
-                await db.SaveChangesAsync();
+                //更新物品状态
                 db.Goods.Attach(goods);
                 goods.UserID = user.UserId;
                 goods.State = 0;
                 goods.GetDate = DateTime.Now;
+                //添加订单信息
+                Order neworder = new Order
+                {
+                    Sell = old_user,
+                    Pay = user,
+                    Price = goods.Price,
+                    Complete_Time = DateTime.Now
+                };
+                db.Orders.Add(neworder);
                 await db.SaveChangesAsync();
+
             }
 
             

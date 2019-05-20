@@ -8,7 +8,7 @@ using System.Web;
 namespace SpongeBob_Mall.DAL
 {
     
-   // [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class MySqlContext : DbContext
     {
         static MySqlContext()
@@ -28,5 +28,9 @@ namespace SpongeBob_Mall.DAL
         public System.Data.Entity.DbSet<SpongeBob_Mall.Models.Map> Maps { get; set; }
 
         public System.Data.Entity.DbSet<SpongeBob_Mall.Models.Goods> Goods { get; set; }
+
+        public System.Data.Entity.DbSet<SpongeBob_Mall.Models.Admin> Admins { get; set; }
+
+        public System.Data.Entity.DbSet<SpongeBob_Mall.Models.Order> Orders { get; set; }
     }
 }

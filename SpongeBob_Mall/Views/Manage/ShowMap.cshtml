@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SpongeBob_Mall.Models.Goods>
+﻿@model IEnumerable<SpongeBob_Mall.Models.Map>
 @using System.Collections;
 @using System.Xml.Linq;
 @using System.Xml;
@@ -57,80 +57,55 @@
                     </ul>
                 </div>
             </div>
+            <div>
+                <form action="/Manage/AddMap" method="post" enctype="multipart/form-data" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
+                    <input type="file" name="file1" />
+                    <input type="text" name="name" placeholder="name" />
+                    <input type="text" name="rare" placeholder="tare" />
+                    <input type="text" name="type" placeholder="type" />
+                    <input type="submit" value="submit" />
+                </form>
+            </div>
         </div>
     </div>
     <div class="info-right">
         <div class="main_panel">
             <div class="main_choose_menu">
                 <div class="choose_menu_left" id="choose_menu_left">
-                    <ul>
-                        @if ((int)HttpContext.Current.Session["time_sort"] == 0)
-                        {
-                            <li class="sort_way">@Html.ActionLink("时间升序", "Sort", new { time_sort = 1 })</li>//默认没有选中的状态
-                        }
-                        else if ((int)HttpContext.Current.Session["time_sort"] == 1)
-                        {
-                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("时间升序", "Sort", new { time_sort = 2 })</li>//选中的升序状态
-                        }
-                        else
-                        {
-                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("时间降序", "Sort", new { time_sort = 0 })</li>//选中的降序状态
-                        }
-                        @if ((int)HttpContext.Current.Session["price_sort"] == 0)
-                        {
-                            <li class="sort_way">@Html.ActionLink("价格升序", "Sort", new { price_sort = 1 })</li>
-                        }
-                        else if ((int)HttpContext.Current.Session["price_sort"] == 1)
-                        {
-                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("价格升序", "Sort", new { price_sort = 2 })</li>
-                        }
-                        else
-                        {
-                            <li class="sort_way" style="background-color:#63779B;color:#1c202b">@Html.ActionLink("价格降序", "Sort", new { price_sort = 0 })</li>
-                        }
-                    </ul>
+                    
                 </div>
-                <form action="/Bag/Search" class="search_bar" method="get" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
+                <form action="/Shop/Search" class="search_bar" method="get" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
                     @Html.TextBox("search_value", "", new { @class = "searchbox", @placeholder = "输入物品名称" })
-                    <input type="submit" value="搜索" class="searchbtn" />
+                    <input type="submit" value="搜索" class="searchbtn" accept-charset="utf-8" onsubmit="document.charset='utf-8'" />
                 </form>
             </div>
             <div class="main_goods_list">
                 @foreach (var item in Model)
                 {
-                    <div class="goods_div" id="show_@item.GoodsId" onmouseenter="ShowShop(this,'hide_@item.GoodsId')">
+                    <div class="goods_div" id="show_@item.MapId" >
 
                         <div class="goods_img">
-                            <img class="goodsimg" src="../img/sp/@item.Map.Picture" />
+                            <img class="goodsimg" src="../img/sp/@item.Picture" />
                         </div>
                         <div class="goods_date">
-                            @item.Map.Name
+                            @item.Name
                         </div>
                         <br />
                         <div class="goods_price">
-                            参考价格:暂无
                         </div>
                         @{
                             XmlNode root3 = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
                             XmlNodeList root4 = root3.ChildNodes;
                             foreach (XmlNode i in root4)
                             {
-                                if (i.FirstChild.InnerText == item.Map.Rare)
+                                if (i.FirstChild.InnerText == item.Rare)
                                 {
-                                    <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Map.Rare</div>
+                                    <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Rare</div>
                                     break;
                                 }
                             }
                         }
                     </div>
-                    <form method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="return firm(this)">
-                        <div id="sell_price" name="text_price">
-                            上架价格<br><br>
-                            <input name="goodsId" value="@item.GoodsId" style="display:none"/>
-                            <input id="sell_ipt" name="goodsPrice" ninput="value=value.replace(/[^\d]/g,'')" autocomplete="off">
-                        </div>
-                        <input class="sell_btn" value="上架" type="submit">
-                    </form>
                 }
             </div>
             <div class="change_page">
@@ -149,7 +124,7 @@
                 }
                 else
                 {
-                    @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 },new { @class= "chpa change_buttom2" })
+                    @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 }, new { @class = "chpa change_buttom2" })
                 }
             </div>
         </div>
