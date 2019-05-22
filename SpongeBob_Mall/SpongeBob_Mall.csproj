@@ -150,7 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\TestGoodsController.cs" />
     <Compile Include="Controllers\XieBaoWang\BagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -172,6 +172,8 @@
     <Compile Include="Models\SelectList.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\MapPaging.cs" />
+    <Compile Include="Tools\Paging.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\abc.css" />
@@ -255,12 +257,12 @@
     <Content Include="Views\TestGoods\Index.cshtml" />
     <Content Include="Views\Login\MoneyBag.cshtml" />
     <Content Include="Views\Bag\ShowShelvesList.cshtml" />
-    <Content Include="Views\Manage\ShowMap.cshtml" />
+    <Content Include="Views\Maps\Index.cshtml" />
+    <Content Include="Views\Maps\ShowUserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\sp\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
