@@ -48,7 +48,7 @@ namespace SpongeBob_Mall.Controllers
                 HttpContext.Session["type"] = type;
             }
             HttpContext.Session["bag_page"] = 1;
-            maps = await mapPaging.Choose(rare == "不限" ? null : rare, type == "不限" ? null : type);
+            maps = await mapPaging.Choose(rare,type);
             SavaMapPaging();
             PageMark();
             return View("~/Views/Maps/Index.cshtml", maps);
