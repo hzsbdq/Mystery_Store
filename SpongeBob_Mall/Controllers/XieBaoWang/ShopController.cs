@@ -250,9 +250,10 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
                 User old_user = goods.User;
-                //扣除余额
+                //余额更改
                 db.Users.Attach(user);
                 user.Property -= goods.Price;
+                old_user.Property += goods.Price;
                 //更新物品状态
                 db.Goods.Attach(goods);
                 goods.UserID = user.UserId;
@@ -270,8 +271,6 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
                 await db.SaveChangesAsync();
 
             }
-
-            
 
             return Redirect("index");
         }

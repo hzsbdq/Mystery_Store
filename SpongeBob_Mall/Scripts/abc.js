@@ -3,7 +3,7 @@ function validate_required(field, alerttxt) {
         if (value == null || value == "") {
             placeholder = alerttxt;
             return false;
-        }
+        }   
         else { return true; }
     }
 }

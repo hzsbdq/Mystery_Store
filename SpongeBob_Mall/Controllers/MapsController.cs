@@ -14,11 +14,14 @@ namespace SpongeBob_Mall.Controllers
     public class MapsController : Controller
     {
         private MySqlContext db = new MySqlContext();
+        private List<Map> maps;
         private MapPaging mapPaging;
+        private int pageNumber=8;
+        private int bag_page = 1;
 
         public MapsController()
         {
-            mapPaging = new MapPaging(db, 8);
+            mapPaging = new MapPaging(db, pageNumber);
         }
 
         //显示物品图鉴列表
@@ -26,12 +29,15 @@ namespace SpongeBob_Mall.Controllers
         public async Task<ActionResult> Index()
         {
             HttpContext.Session["bag_page"] = 1;
-            return View(await mapPaging.GetPageByNumberAsync(0));
+            maps = await mapPaging.GetPageByNumberAsync(0);
+            SavaMapPaging();
+            PageMark();
+            return View(maps);
         }
         //选择查看分类
         public async Task<ActionResult> Choose(string rare,string type)
         {
-
+            FindMapPaging();
             if (rare != null)
             {
                 HttpContext.Session["rare"] = rare;
@@ -42,22 +48,28 @@ namespace SpongeBob_Mall.Controllers
                 HttpContext.Session["type"] = type;
             }
             HttpContext.Session["bag_page"] = 1;
-            return View("~/Views/Maps/Index.cshtml", await mapPaging.Choose(rare == "不限" ? null : rare, type == "不限" ? null : type));
+            maps = await mapPaging.Choose(rare == "不限" ? null : rare, type == "不限" ? null : type);
+            SavaMapPaging();
+            PageMark();
+            return View("~/Views/Maps/Index.cshtml", maps);
         }
 
         //搜索
         [HttpGet]
         public async Task<ActionResult> Search(string search_value)
         {
+            FindMapPaging();
             HttpContext.Session["bag_page"] = 1;
-            return View("~/Views/Maps/Index.cshtml", await mapPaging.Search(search_value));
+            maps = await mapPaging.Search(search_value);
+            SavaMapPaging();
+            PageMark();
+            return View("~/Views/Maps/Index.cshtml", maps);
         }
 
         //分页
         public async Task<ActionResult> ChangePage(int? change_page)
         {
-            List<Map> maps;
-            int bag_page;
+            FindMapPaging();
 
             if (change_page == 0)
             {
@@ -70,6 +82,8 @@ namespace SpongeBob_Mall.Controllers
             }
 
             maps = await mapPaging.GetPageByNumberAsync(bag_page-1);
+
+            PageMark();
 
             HttpContext.Session["bag_page"] = bag_page;
 
@@ -95,7 +109,36 @@ namespace SpongeBob_Mall.Controllers
                 await db.SaveChangesAsync();
             }
             
-            return Redirect("ShowMap");
+            return Redirect("Index");
+        }
+
+        public void PageMark()
+        {
+            if (!mapPaging.HasNextPage)
+            {
+                ViewBag.max_page = bag_page;
+            }
+            else
+            {
+                ViewBag.max_page = bag_page + 1;
+            }
+        }
+
+        public void SavaMapPaging()
+        {
+            HttpContext.Session["mapPaging"] = mapPaging;
+        }
+
+        public void FindMapPaging()
+        {
+            if (HttpContext.Session["mapPaging"] != null)
+            {
+                mapPaging = (MapPaging)HttpContext.Session["mapPaging"];
+            }
+            else
+            {
+                mapPaging = new MapPaging(db, pageNumber);
+            }
         }
     }
 }

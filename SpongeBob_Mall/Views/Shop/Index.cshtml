@@ -123,12 +123,12 @@
                             }
                         }
                     </div>
-                    <form action="/Bag/Putaway" method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="return firm(this)">
+                    <form method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="PayJudge('@item.GoodsId')">
                         <div id="sell_price">
                             价格<br><br>
                             <div class="price_text">￥@item.Price</div>
                         </div>
-                        <div class="sell_btn" onclick="PayJudge('@item.GoodsId')">确认购买</div>
+                        <input class="sell_btn" value="确认购买" type="submit">
                     </form>
                 }
             </div>

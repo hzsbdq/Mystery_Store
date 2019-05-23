@@ -61,9 +61,23 @@
                 <form action="/Maps/AddMap" method="post" enctype="multipart/form-data" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
                     <input id="upfile" onchange="viewmypic(showimg,this.form.upfile);" type="file" name="file1" />
                     <img name="showimg" id="showimg" src="" style="display:none;" alt="预览图片" />
-                    <input type="text" name="name" placeholder="name" />
-                    <input type="text" name="rare" placeholder="tare" />
-                    <input type="text" name="type" placeholder="type" /><br />
+                    <input name="name" type="text" placeholder="name" /><br />
+                    <select name="rare">
+                        <option value="普通">普通</option>
+                        <option value="稀有">稀有</option>
+                        <option value="神话">神话</option>
+                        <option value="不朽">不朽</option>
+                        <option value="至宝">至宝</option>
+                    </select><br />
+                    <select name="type">
+                        <option value="武器">武器</option>
+                        <option value="头部">头部</option>
+                        <option value="手部">手部</option>
+                        <option value="衣服">衣服</option>
+                        <option value="背饰">背饰</option>
+                        <option value="裤子">裤子</option>
+                        <option value="鞋子">鞋子</option>
+                    </select><br />
                     <input type="submit" value="submit" />
                 </form>
             </div>
@@ -117,7 +131,14 @@
                     @Html.ActionLink("上一页", "ChangePage", new { change_page = -1 }, new { @class = "chpa change_buttom1" })
                 }
                 <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"])</div>
-                @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 }, new { @class = "chpa change_buttom2" })
+                @if ((int)HttpContext.Current.Session["bag_page"] == (int)ViewBag.max_page)
+                {
+                    <div class="chpa change_buttom2">下一页</div>
+                }
+                else
+                {
+                    @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 }, new { @class = "chpa change_buttom2" })
+                }
             </div>
         </div>
     </div>

@@ -19,23 +19,26 @@ namespace SpongeBob_Mall.Tools
 
         public override async Task<List<Map>> Search(string Name)
         {
-            target_or = db.Maps.Where(b => b.Name.Contains(Name));
-            Ts = await Sort();
-            return Ts;
+            name = Name;
+            target_or = db.Maps.Where(b => (rare == null ? true : b.Rare == this.rare) && (type == null ? true : b.type == this.type) && b.Name.Contains(name));
+            L_Ts = await Sort();
+            return L_Ts;
         }
 
         public async Task<List<Map>> Choose(string rare,string type)
         {
-            target_or = db.Maps.Where(b => (rare == null ? true : b.Rare == rare) && (type == null ? true : b.type == type));
-            Ts = await Sort();
-            return Ts;
+            this.rare = rare;
+            this.type = type;
+            target_or = db.Maps.Where(b => (rare == null ? true : b.Rare == this.rare) && (type == null ? true : b.type == this.type)&& b.Name.Contains(name));
+            L_Ts = await Sort();
+            return L_Ts;
         }
 
         public override async Task<List<Map>> Sort()
         {
             target_ored = target_or.OrderBy(b => true);
-            Ts = await GetPageByNumberAsync(0);
-            return Ts;
+            L_Ts = await GetPageByNumberAsync(0);
+            return L_Ts;
         }
     }
 }
