@@ -123,7 +123,7 @@
                             }
                         }
                     </div>
-                    <form method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="PayJudge('@item.GoodsId')">
+                    <form method="post" class="goods_div_hide" id="hide_@item.GoodsId" onmouseleave="HideShop(this,'show_@item.GoodsId')" onsubmit="PayJudge('@item.GoodsId','@item.Price')">
                         <div id="sell_price">
                             价格<br><br>
                             <div class="price_text">￥@item.Price</div>

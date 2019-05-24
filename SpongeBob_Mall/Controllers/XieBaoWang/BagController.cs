@@ -13,12 +13,14 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
     public class BagController : Controller
     {
         private MySqlContext db = new MySqlContext();
+        private int state=0;
         // 获取背包列表
 
         public async Task<ActionResult> Index()
         {
             List<Goods> goods;
-            await Choose(null,null,0);
+            state = 0;
+            await Choose(null,null);
             goods = (List<Goods>)HttpContext.Session["goods"];
             return View(goods);
         }
@@ -27,13 +29,14 @@ namespace SpongeBob_Mall.Controllers.XieBaoWang
         public async Task<ActionResult> ShowShelvesList()
         {
             List<Goods> goods;
-            await Choose(null, null,1);
+            state = 1;
+            await Choose(null, null);
             goods = (List<Goods>)HttpContext.Session["goods"];
             return View(goods);
         }
 
         //选择查看分类
-        public async Task<ActionResult> Choose(int? fl, string choose,int state)
+        public async Task<ActionResult> Choose(int? fl, string choose)
         {
             User user = (User)HttpContext.Session["user"];
             IQueryable<Goods> goods_or;

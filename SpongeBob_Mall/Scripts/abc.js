@@ -56,7 +56,7 @@ function HideShop(shop,id) {
 
 function firm(price) {
     with (price) {
-        if (confirm("你确定以￥" + goodsPrice.value + "上架吗")) {
+        if (confirm("你确定以￥" + goodsPrice.value + "的价格上架吗?")) {
             PutawayJudge(goodsId.value, goodsPrice.value);
             return true;
         } else {
@@ -65,14 +65,17 @@ function firm(price) {
     }
 }
 
-function PayJudge(goodsid) {
-    var jsonObj = { 'type': "goodsid", 'text': goodsid };
-    //jsonObj.push({ "type": "goodsid", "text": goodsid });
-    myAjax('/Shop/Pay', jsonObj, null, function (re) {
-        $.each(re, function (i, eobj) {
-            alert(eobj.message);
-        })
-    });
+function PayJudge(goodsid, price) {
+    if (confirm("你确定以￥" + price + "的价格购买吗?")) {
+        var jsonObj = { 'type': "goodsid", 'text': goodsid };
+        myAjax('/Shop/Pay', jsonObj, null, function (re) {
+            $.each(re, function (i, eobj) {
+                alert(eobj.message);
+            })
+        });
+    } else {
+        return false;
+    }
 }
 
 function PutawayJudge(goodsid, goodsprice) {
