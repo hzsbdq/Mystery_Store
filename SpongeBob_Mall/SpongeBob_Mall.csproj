@@ -151,7 +151,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MapsController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\TestGoodsController.cs" />
+    <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\XieBaoWang\BagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -173,7 +175,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\MapPaging.cs" />
+    <Compile Include="Tools\OrderPaging.cs" />
     <Compile Include="Tools\Paging.cs" />
+    <Compile Include="Tools\UserPaging.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\abc.css" />
@@ -259,6 +263,8 @@
     <Content Include="Views\Bag\ShowShelvesList.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
     <Content Include="Views\Maps\ShowUserList.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

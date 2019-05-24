@@ -1,0 +1,97 @@
+﻿@model IEnumerable<SpongeBob_Mall.Models.Order>
+@using System.Collections;
+@using System.Xml.Linq;
+@using System.Xml;
+@{
+    XmlDocument xmlDocument = new XmlDocument();
+    xmlDocument.Load(Server.MapPath("~/XML/Choose_Class.xml"));
+}
+<div class="cen2">
+    <div class="info-left">
+        <div class="left_panel">
+            <div class="left_choose_menu">
+                <div class="choose_class"><a>…稀有度</a></div>
+                <div class="choose_list" id="choose_list_rare">
+                    <ul>
+                        @{
+                            XmlNode root = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
+                            XmlNodeList list = root.ChildNodes;
+                            foreach (XmlNode item in list)
+                            {
+                                <li>
+                                    @if ((string)HttpContext.Current.Session["rare"] == item.FirstChild.InnerText)
+                                    {
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Choose", new { rare = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck", @style = "color:" + item.LastChild.InnerText })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Choose", new { rare = item.FirstChild.InnerText }, new { @class = "choose_div", @style = "color:" + item.LastChild.InnerText })
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="left_choose_menu">
+                <div class="choose_class"><a>…类型</a></div>
+                <div class="choose_list" id="choose_list_type">
+                    <ul>
+                        @{
+                            XmlNode root1 = xmlDocument.SelectSingleNode("choose_class/leixing");
+                            XmlNodeList list1 = root1.ChildNodes;
+                            foreach (XmlNode item in list1)
+                            {
+                                <li>
+                                    @if ((string)HttpContext.Current.Session["type"] == item.FirstChild.InnerText)
+                                    {
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Choose", new { type = item.FirstChild.InnerText }, new { @class = "choose_div choosecheck" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(item.FirstChild.InnerText, "Choose", new { type = item.FirstChild.InnerText }, new { @class = "choose_div" })
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-right">
+        <div class="main_panel">
+            <div class="main_choose_menu">
+            </div>
+            <div class="main_goods_list">
+                @foreach (var item in Model)
+                {
+                    <div class="hor_list">
+                        <span class="f_left">购买用户：@item.Pay.Name</span>
+                        <span>成交价格：￥@item.Price</span>
+                        <sapn class="f_right">出售用户：@item.Sell.Name</sapn>
+                    </div>
+                }
+            </div>
+            <div class="change_page">
+                @if ((int)HttpContext.Current.Session["bag_page"] == 1)
+                {
+                    <div class="chpa change_buttom1">上一页</div>
+                }
+                else
+                {
+                    @Html.ActionLink("上一页", "ChangePage", new { change_page = -1 }, new { @class = "chpa change_buttom1" })
+                }
+                <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"])</div>
+                @if ((int)HttpContext.Current.Session["bag_page"] == (int)ViewBag.max_page)
+                {
+                    <div class="chpa change_buttom2">下一页</div>
+                }
+                else
+                {
+                    @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 }, new { @class = "chpa change_buttom2" })
+                }
+            </div>
+        </div>
+    </div>
+</div>

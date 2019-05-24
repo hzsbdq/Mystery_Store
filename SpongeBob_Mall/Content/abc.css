@@ -1398,3 +1398,19 @@ a.chpa:hover {
     width:210px;
     height:138px;
 }
+
+.hor_list {
+    height: 59px;
+    width: 100%-40px;
+    border-bottom: 1px black solid;
+    line-height: 60px;
+    padding: 0 20px;
+}
+
+.f_left {
+    float: left;
+}
+
+.f_right {
+    float: right;
+}

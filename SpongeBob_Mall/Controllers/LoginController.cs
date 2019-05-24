@@ -112,9 +112,6 @@ namespace SpongeBob_Mall.Controllers
             HttpContext.Session["user"] = user;
 
             return View("~/Views/Home/Index.cshtml");
-            //HttpContext.Session["user"] = username;
-            //return View("~/Views/Login/Register.cshtml");
-
         }
 
     }
