@@ -69,7 +69,9 @@
                 <div class="hor_list">
                     <span class="f_left">@item.Name</span>
                     <span>用户余额：￥@item.Property</span>
-                    <sapn class="f_right">@Html.ActionLink(item.Sex==2?"封禁":"已封禁","BanUser",new {userid=item.UserId })&nbsp;&nbsp;<a href="#">交易订单</a></sapn>
+                    <sapn class="f_right">@Html.ActionLink(item.Sex==2?"封禁":"已封禁","BanUser",new {userid=item.UserId })&nbsp;&nbsp;
+                    @Html.ActionLink("交易订单", "ShowOrderByUserId","Order",new {userid=item.UserId },new { })
+                    </sapn>
                 </div>
                 }
             </div>

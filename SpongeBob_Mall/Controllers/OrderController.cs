@@ -1,4 +1,5 @@
 ﻿using SpongeBob_Mall.DAL;
+using SpongeBob_Mall.Filter;
 using SpongeBob_Mall.Models;
 using SpongeBob_Mall.Tools;
 using System;
@@ -24,6 +25,7 @@ namespace SpongeBob_Mall.Controllers
         }
 
         //显示所有订单列表
+        [AdminAuthorize]
         public async Task<ActionResult> Index()
         {
             orders = await orderPaging.GetPageByNumberAsync(0);
@@ -31,7 +33,8 @@ namespace SpongeBob_Mall.Controllers
             PageMark();
             return View(orders);
         }
-        //分页
+        //分页1
+        [AdminAuthorize]
         public async Task<ActionResult> ChangePage(int? change_page)
         {
             FindorderPaging();
@@ -54,9 +57,13 @@ namespace SpongeBob_Mall.Controllers
 
             return View("~/Views/Order/Index.cshtml", orders);
         }
-        public ActionResult ShowOrderByUserId(int userid)
+        [AdminAuthorize]
+        public async Task<ActionResult> ShowOrderByUserId(int userid)
         {
-            return View();
+            orders = await orderPaging.GetOrderById(userid);
+            SavaorderPaging();
+            PageMark();
+            return View(orders);
         }
 
         public void PageMark()

@@ -1,4 +1,5 @@
 ﻿using SpongeBob_Mall.DAL;
+using SpongeBob_Mall.Filter;
 using SpongeBob_Mall.Models;
 using SpongeBob_Mall.Tools;
 using System;
@@ -24,7 +25,9 @@ namespace SpongeBob_Mall.Controllers
         {
             userPaging = new UserPaging(db, pageNumber);
         }
+
         //显示用户列表
+        [AdminAuthorize]
         public async Task<ActionResult> Index()
         {
             users = await userPaging.GetPageByNumberAsync(0);
@@ -34,6 +37,7 @@ namespace SpongeBob_Mall.Controllers
         }
 
         //封禁用户
+        [AdminAuthorize]
         public async Task<ActionResult> BanUser(int userid)
         {
             User user = await db.Users.Where(b => b.UserId == userid).FirstOrDefaultAsync();
@@ -43,6 +47,7 @@ namespace SpongeBob_Mall.Controllers
             return Redirect("Index");
         }
         //分页
+        [AdminAuthorize]
         public async Task<ActionResult> ChangePage(int? change_page)
         {
             FindMapPaging();

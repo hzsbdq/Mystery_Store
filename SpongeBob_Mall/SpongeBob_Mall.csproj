@@ -162,6 +162,7 @@
     <Compile Include="Controllers\XieBaoWang\xbwHomeController.cs" />
     <Compile Include="DAL\DbInitializer.cs" />
     <Compile Include="DAL\MySqlContext.cs" />
+    <Compile Include="Filter\AdminAuthorizeAttribute.cs" />
     <Compile Include="Filter\IsAuthorizeAttribute.cs" />
     <Compile Include="GameExecute\Mining.cs" />
     <Compile Include="Global.asax.cs">
@@ -265,6 +266,8 @@
     <Content Include="Views\Maps\ShowUserList.cshtml" />
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Views\Order\ShowOrderByUserId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

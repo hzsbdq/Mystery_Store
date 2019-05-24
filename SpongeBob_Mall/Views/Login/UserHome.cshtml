@@ -70,18 +70,9 @@
                     <td class="tbright"><input type="button" href="#" class="btnblue" value="修改密码"></td>
                 </tr>*@
                 <tr>
-                    <td class="tbleft">家庭住址</td>
+                    <td class="tbleft">退出账户</td>
                     <td class="tbcen"></td>
-                    <td class="tbright">
-                        <select onchange="selectnew(this.options[this.options.selectedIndex].text)">
-                            <option>请选择</option>
-                            <option>浙江</option>
-                            <option>江苏</option>
-                        </select>
-                        <select id="sj">
-                            <option>请选择省份</option>
-                        </select>
-                    </td>
+                    <td class="tbright">@Html.ActionLink("注销", "Cancellation",new { }, new { })</td>
                 </tr>
             </table>
         </div>

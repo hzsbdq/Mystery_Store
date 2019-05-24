@@ -10,6 +10,7 @@ namespace SpongeBob_Mall.Tools
 {
     public class OrderPaging:Paging<Order>
     {
+        private int userid=-1;
         public OrderPaging(MySqlContext db, int amount) : base(db, amount)
         {
             target_or = db.Orders.Where(b => true);
@@ -19,7 +20,15 @@ namespace SpongeBob_Mall.Tools
         public override async Task<List<Order>> Search(string Name)
         {
             name = Name;
-            target_or = db.Orders.Where(b => b.Pay.Name.Contains(name)||b.Sell.Name.Contains(name));
+            target_or = db.Orders.Where(b => (b.Pay.Name.Contains(name) || b.Sell.Name.Contains(name)) && userid == -1 ? true : (b.Pay.UserId == userid || b.Sell.UserId == userid));
+            L_Ts = await Sort();
+            return L_Ts;
+        }
+
+        public async Task<List<Order>> GetOrderById(int UserId)
+        {
+            userid = UserId;
+            target_or = db.Orders.Where(b => (b.Pay.Name.Contains(name) || b.Sell.Name.Contains(name)) && (b.Pay.UserId == userid || b.Sell.UserId == userid));
             L_Ts = await Sort();
             return L_Ts;
         }

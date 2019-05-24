@@ -12,14 +12,14 @@ namespace SpongeBob_Mall.Tools
     {
         public UserPaging(MySqlContext db, int amount) : base(db, amount)
         {
-            target_or = db.Users.Where(b => true);
+            target_or = db.Users.Where(b => b.Sex!=3);
             target_ored = target_or.OrderBy(b => b.UserId);
         }
 
         public override async Task<List<User>> Search(string Name)
         {
             name = Name;
-            target_or = db.Users.Where(b => b.Name.Contains(name));
+            target_or = db.Users.Where(b => b.Name.Contains(name)&&b.Sex!=3);
             L_Ts = await Sort();
             return L_Ts;
         }

@@ -28,6 +28,10 @@ namespace SpongeBob_Mall.Controllers
             {
                 HttpContext.Session.Remove("user");
             }
+            if(HttpContext.Session["admin"] != null)
+            {
+                HttpContext.Session.Remove("admin");
+            }
             return Redirect("Index");
         }
 
@@ -47,6 +51,7 @@ namespace SpongeBob_Mall.Controllers
         {
             return View();
         }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -103,10 +108,14 @@ namespace SpongeBob_Mall.Controllers
         {
 
             User user = await db.Users.Where(b => b.Username == username && b.Password == password).FirstOrDefaultAsync();
-
             if (user == null)
             {
                 Response.Redirect("Index?errorMSG=1");
+            }
+            else
+            {
+                Admin admin = await db.Admins.Where(b => b.UserId == user.UserId).FirstOrDefaultAsync();
+                HttpContext.Session["admin"] = admin;
             }
 
             HttpContext.Session["user"] = user;

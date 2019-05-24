@@ -1,4 +1,5 @@
 ﻿using SpongeBob_Mall.DAL;
+using SpongeBob_Mall.Filter;
 using SpongeBob_Mall.Models;
 using SpongeBob_Mall.Tools;
 using System;
@@ -25,7 +26,7 @@ namespace SpongeBob_Mall.Controllers
         }
 
         //显示物品图鉴列表
-        [AllowAnonymous]
+        [AdminAuthorize]
         public async Task<ActionResult> Index()
         {
             HttpContext.Session["bag_page"] = 1;
@@ -35,6 +36,7 @@ namespace SpongeBob_Mall.Controllers
             return View(maps);
         }
         //选择查看分类
+        [AdminAuthorize]
         public async Task<ActionResult> Choose(string rare,string type)
         {
             FindMapPaging();
@@ -56,6 +58,7 @@ namespace SpongeBob_Mall.Controllers
 
         //搜索
         [HttpGet]
+        [AdminAuthorize]
         public async Task<ActionResult> Search(string search_value)
         {
             FindMapPaging();
@@ -67,6 +70,7 @@ namespace SpongeBob_Mall.Controllers
         }
 
         //分页
+        [AdminAuthorize]
         public async Task<ActionResult> ChangePage(int? change_page)
         {
             FindMapPaging();
@@ -89,8 +93,9 @@ namespace SpongeBob_Mall.Controllers
 
             return View("~/Views/Maps/Index.cshtml", maps);
         }
-        
+
         //添加物品图鉴
+        [AdminAuthorize]
         public async Task<ActionResult> AddMap(string name,string rare,string type)
         {
             if (Request.Files.Count > 0)

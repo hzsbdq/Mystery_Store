@@ -66,11 +66,11 @@
             <div class="main_goods_list">
                 @foreach (var item in Model)
                 {
-                <div class="hor_list">
-                    <span class="f_left">购买用户：@item.Pay.Name|出售用户：@item.Sell.Name</span>
-                    <span>成交价格：￥@item.Price</span>
-                    <sapn class="f_right">完成时间：@item.Complete_Time</sapn>
-                </div>
+                    <div class="hor_list">
+                        <span class="f_left">购买用户：@item.Pay.Name|出售用户：@item.Sell.Name</span>
+                        <span>成交价格：￥@item.Price</span>
+                        <sapn class="f_right">完成时间：@item.Complete_Time</sapn>
+                    </div>
                 }
             </div>
             <div class="change_page">
