@@ -101,14 +101,15 @@ namespace SpongeBob_Mall.Controllers
             if (Request.Files.Count > 0)
             {
                 HttpPostedFileBase f = Request.Files["file1"];
-                f.SaveAs(Server.MapPath("~/img/sp/"+f.FileName));
+                string[] str = f.FileName.Split('.');
+                f.SaveAs(Server.MapPath("~/img/sp/"+name+"."+str[1]));
                 Map map = new Map
                 {
                     Name = name,
                     Rare = rare,
                     type = type,
                     Place = 0,
-                    Picture = f.FileName
+                    Picture = name + "." + str[1]
                 };
                 db.Maps.Add(map);
                 await db.SaveChangesAsync();

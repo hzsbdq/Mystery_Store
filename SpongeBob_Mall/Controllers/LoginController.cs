@@ -94,7 +94,7 @@ namespace SpongeBob_Mall.Controllers
                 Password = password,
                 Name = username,
                 Sex = 2,
-                Property = 0
+                Property = 100000
             };
             db.Users.Add(newUser);
             await db.SaveChangesAsync();

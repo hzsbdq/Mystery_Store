@@ -6,10 +6,10 @@
 <head>
     <META http-equiv="content-type" content="text/html; charset=gb2312">
     <title>Mystery Store</title>
-    <script type="text/javascript" src="myscripts.js" charset="UTF-8"></script>
     @Styles.Render("~/Content/abc.css")
-    @Scripts.Render("~/Scripts/abc.js")
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
     @Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    @Scripts.Render("~/Scripts/abc.js")
 </head>
 <body OnLoad="swapPic()">
     <div class="top">
@@ -36,6 +36,11 @@
                         <li>
                             <strong>
                                 @Html.ActionLink("已上架商品", "ShowShelvesList", "Bag")
+                            </strong>
+                        </li>
+                        <li>
+                            <strong>
+                                @Html.ActionLink("抽奖", "Index", "RollGoods")
                             </strong>
                         </li>
                     </ul>
@@ -119,7 +124,7 @@
                 <div class="under">
                     <hr class="hr1">
                     <a href="#">公司简介</a> - <a href="#">客户服务</a> - <a href="#">相关法律</a> - <a href="#">联系我们</a> - <a href="#">商务合作</a> - <a href="#">加入我们</a> <br>
-                    lwz公司版权所有 ©1997-2019 中国网络游戏版权保护联盟举报中心
+                    <a href="http://www.miitbeian.gov.cn">浙ICP备16035504号-2</a>
                 </div>
             </div>
         </center>

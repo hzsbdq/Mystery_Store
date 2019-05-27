@@ -1,0 +1,15 @@
+﻿<div class="cen">
+    <div class="table">
+        <div class="logo2">
+            <img src="../img/logocn.png">
+        </div>
+        <div class="form1">
+            @using (Html.BeginForm("GetGoods", "Bag", FormMethod.Post, new { @onsubmit = "return validate_form(this)" }))
+            {
+                
+                @Html.TextBox("mapId", "", new { @class = "form11", @placeholder = "物品ID" });
+                <input type="submit" value="获得" class="login-in-btn" />
+            }
+        </div>
+    </div>
+</div>

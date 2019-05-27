@@ -1,0 +1,11 @@
+﻿@{
+    if (HttpContext.Current.Session["admin"] != null)
+    {
+        Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+}

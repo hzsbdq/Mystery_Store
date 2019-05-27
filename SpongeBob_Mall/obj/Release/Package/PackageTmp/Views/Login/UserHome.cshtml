@@ -1,0 +1,111 @@
+﻿@using SpongeBob_Mall.Models;
+@{
+    User user = null;
+    if (HttpContext.Current.Session["user"] != null)
+    {
+        user = (SpongeBob_Mall.Models.User)HttpContext.Current.Session["user"];
+    }
+    else
+    {
+        user.Name = "滚去登录";
+        Response.Redirect("Index");
+    }
+
+}
+<div class="cen2">
+    <div class="info-left">
+        <div class="cont_panel">
+            <div class="mytx">
+                <img class="txpic" src="../img/tx.png">
+                <h2>@user.Name</h2>
+                <div class="clear"></div>
+            </div>
+            <div class="my-menu" id="my-menu">
+                <ul>
+                    <li><a href="#">我的钱包</a></li>
+                    <li><a href="#">帐号设置</a></li>
+                    <li><a href="#">消息中心</a></li>
+                    <li><a href="#">我的收藏</a></li>
+                    <li><a href="#">联系客服</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-right">
+        <div class="textb">
+            <table>
+                <tr class="maintt">
+                    <td class="tblefts"><h3>基本设置</h3></td>
+                </tr>
+                <tr>
+                    <td class="tbleft">头像</td>
+                    <td class="tbcen"><img class="tx2" src="../img/tx.png" /></td>
+                    <td class="tbright"><input type="button" href="#" class="btnblue" value="修改头像"></td>
+                </tr>
+                <tr>
+                    <td class="tbleft">昵称</td>
+                    <td class="tbcen">@user.Name</td>
+                    <td class="tbright"><input type="button" href="#" class="btnblue" value="修改昵称"></td>
+                </tr>
+            </table>
+            <div class="blank"></div>
+            <table>
+                <tr class="maintt">
+                    <td class="tblefts"><h3>安全设置</h3></td>
+                </tr>
+                <tr>
+                    <td class="tbleft">手机账号</td>
+                    <td class="tbcen">绑定手机号 173****5555</td>
+                    <td class="tbright"><input type="button" href="#" class="btnblue" value="修改手机"></td>
+                </tr>
+                <tr>
+                    <td class="tbleft">实名认证</td>
+                    <td class="tbcen">已认证</td>
+                    <td class="tbright"></td>
+                </tr>
+                @*<tr>
+                    <td class="tbleft">密码设置</td>
+                    <td class="tbcen"></td>
+                    <td class="tbright"><input type="button" href="#" class="btnblue" value="修改密码"></td>
+                </tr>*@
+                <tr>
+                    <td class="tbleft">退出账户</td>
+                    <td class="tbcen"></td>
+                    <td class="tbright">@Html.ActionLink("注销", "Cancellation",new { }, new { })</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    function selectnew(sf) {
+        var select = document.getElementById("sj");
+        var zj = ['杭州', '宁波'];
+        var js = ['苏州', '无锡'];
+        var other = ['请选择省份'];
+        clear(select);
+        switch (sf) {
+            case '浙江':
+                addnop(zj, select);
+                break;
+            case '江苏':
+                addnop(js, select);
+                break;
+            default:
+                addnop(other, select);
+                break;
+        }
+    }
+    function addnop(sz,select) {
+        for (var i = 0; i < sz.length; i++) {
+            var nop = document.createElement("option");
+            nop.text = sz[i];
+            select.options.add(nop);
+        }
+    }
+    function clear(select) {
+        select.length = 0;
+    }
+</script>

@@ -6,14 +6,19 @@
     XmlDocument xmlDocument = new XmlDocument();
     xmlDocument.Load(Server.MapPath("~/XML/Choose_Class.xml"));
     XmlNode root = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
-    XmlNodeList list = root.ChildNodes;
+    Dictionary<String, String> dic = new Dictionary<string, string>();
+    foreach (XmlNode xn in root.ChildNodes)
+    {
+        dic.Add(xn.FirstChild.InnerText, xn.LastChild.InnerText);
+    }
 }
 <div id="cj">
     @if (Model!=null)
-    {
-        foreach (var item in Model)
-        {
-            <img class="little_box" src="../img/sp/@item.Picture" />
+                {
+                    foreach (var item in Model)
+                    {
+                        
+            <img class="little_box" src="../img/sp/@item.Picture" style="border:5px solid @dic[item.Rare];display:none;"/>
         }
     }
     else

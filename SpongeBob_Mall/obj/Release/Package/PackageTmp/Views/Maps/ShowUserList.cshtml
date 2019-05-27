@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SpongeBob_Mall.Models.Map>
+@using System.Collections;
+@using System.Xml.Linq;
+@using System.Xml;
+@{
+    XmlDocument xmlDocument = new XmlDocument();
+    xmlDocument.Load(Server.MapPath("~/XML/Choose_Class.xml"));
+}
+<div class="cen2">
+    <div class="info-left">
+        <div class="left_panel">
+            
+        </div>
+    </div>
+    <div class="info-right">
+        <div class="main_panel">
+            <div class="main_choose_menu">
+                <form action="/Shop/Search" class="search_bar" method="get" accept-charset="utf-8" onsubmit="document.charset='utf-8'">
+                    @Html.TextBox("search_value", "", new { @class = "searchbox", @placeholder = "输入物品名称" })
+                    <input type="submit" value="搜索" class="searchbtn" accept-charset="utf-8" onsubmit="document.charset='utf-8'" />
+                </form>
+            </div>
+            <div class="main_goods_list">
+                @foreach (var item in Model)
+                {
+                    <div class="goods_div" id="show_@item.MapId" >
+
+                        <div class="goods_img">
+                            <img class="goodsimg" src="../img/sp/@item.Picture" />
+                        </div>
+                        <div class="goods_date">
+                            @item.Name
+                        </div>
+                        <br />
+                        <div class="goods_price">
+                            现有数量:@item.Place
+                        </div>
+                        @{
+                            XmlNode root3 = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
+                            XmlNodeList root4 = root3.ChildNodes;
+                            foreach (XmlNode i in root4)
+                            {
+                                if (i.FirstChild.InnerText == item.Rare)
+                                {
+                                    <div class="tag" style="background-color:@i.LastChild.InnerText">@item.Rare</div>
+                                    break;
+                                }
+                            }
+                        }
+                    </div>
+                }
+            </div>
+            <div class="change_page">
+                @if ((int)HttpContext.Current.Session["bag_page"] == 1)
+                {
+                    <div class="chpa change_buttom1">上一页</div>
+                }
+                else
+                {
+                    @Html.ActionLink("上一页", "ChangePage", new { change_page = -1 }, new { @class = "chpa change_buttom1" })
+                }
+                <div class="chpa page_number">@((int)HttpContext.Current.Session["bag_page"])</div>
+                @if ((int)HttpContext.Current.Session["bag_page"] == (int)ViewBag.max_page)
+                {
+                    <div class="chpa change_buttom2">下一页</div>
+                }
+                else
+                {
+                    @Html.ActionLink("下一页", "ChangePage", new { change_page = 1 }, new { @class = "chpa change_buttom2" })
+                }
+            </div>
+        </div>
+    </div>
+</div>

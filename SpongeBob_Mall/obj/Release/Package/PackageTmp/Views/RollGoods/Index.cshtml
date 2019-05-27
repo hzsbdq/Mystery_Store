@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SpongeBob_Mall.Models.Map>
+@using System.Collections;
+@using System.Xml.Linq;
+@using System.Xml;
+@{
+    XmlDocument xmlDocument = new XmlDocument();
+    xmlDocument.Load(Server.MapPath("~/XML/Choose_Class.xml"));
+    XmlNode root = xmlDocument.SelectSingleNode("choose_class/xiyoudu");
+    Dictionary<String, String> dic = new Dictionary<string, string>();
+    foreach (XmlNode xn in root.ChildNodes)
+    {
+        dic.Add(xn.FirstChild.InnerText, xn.LastChild.InnerText);
+    }
+}
+<div id="cj">
+    @if (Model!=null)
+                {
+                    foreach (var item in Model)
+                    {
+                        
+            <img class="little_box" src="../img/sp/@item.Picture" style="border:5px solid @dic[item.Rare]"/>
+        }
+    }
+    else
+    {
+        <div>请开始你的表演</div>
+    }
+</div>
+<div id="cj_button">
+    @Html.ActionLink("十连抽(￥1000)","Roll")
+</div>

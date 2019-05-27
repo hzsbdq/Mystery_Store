@@ -129,3 +129,15 @@ function viewmypic(mypic, upfile) {
         }
     }
 }
+
+
+$(function () {
+    $(".little_box").hide();
+    $(".little_box").each(function (index, item) {
+        setTimeout(function () {
+            $(item).show();
+        }, index*500);
+    });
+})
+
+
